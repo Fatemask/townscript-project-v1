@@ -1,0 +1,155 @@
+<div class="row justify-content-center align-items-center d-flex">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+
+
+                <div class="row">
+                    <div [ngClass]="
+                           isLogin && 'col-lg-6 d-none d-lg-block bg-login-image' || 
+                           isSignup && 'col-lg-5 d-none d-lg-block bg-register-image' ||
+                           isPasswordReset && 'col-lg-6 d-none d-lg-block bg-password-image'                       
+                        ">
+                    </div>
+                    <div [ngClass]="isSignup && 'col-lg-7' || 'col-lg-6'">
+                        <div class="p-5">
+
+                            <div *ngIf="isLogin" class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                            </div>
+                            <div *ngIf="isSignup" class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <div *ngIf="isPasswordReset" class="text-center">
+                                <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
+                                <p class="mb-4">We get it, stuff happens. Just enter your email address below and we'll
+                                    send you a link to reset your password!</p>
+                            </div>
+
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="user">
+                                <div *ngIf="isSignup" class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input formControlName="firstName" type="text"
+                                            class="form-control form-control-user" id="exampleFirstName"
+                                            placeholder="First Name">
+                                        <span *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)"
+                                            class="err">
+                                            Please enter your first name
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input formControlName="lastName" type="text"
+                                            class="form-control form-control-user" id="exampleLastName"
+                                            placeholder="Last Name">
+                                        <span *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)"
+                                            class="err">
+                                            Please enter your last name
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input formControlName="email" type="email" class="form-control form-control-user"
+                                        id="exampleInputEmail" aria-describedby="emailHelp"
+                                        placeholder="Enter Email Address..." />
+                                    <span *ngIf="email.invalid && (email.touched || email.dirty)" class="err">You must
+                                        be enter a valid email
+                                        address
+                                    </span>
+                                </div>
+
+                                <!-- <div class="form-group" *ngIf="!isPasswordReset">
+                                 <input formControlName="password" type="password" class="form-control form-control-user" id="exampleInputPassword"
+                                    placeholder="Password" />
+                                 <span *ngIf="password.invalid && password.dirty" class="err">You must be enter a valid
+                                    email address</span>
+                              </div> -->
+
+                                <div class="form-group" [ngClass]="isSignup && 'row'" *ngIf="!isPasswordReset">
+                                    <div [ngClass]="isSignup && 'col-sm-6 mb-3 mb-sm-0'">
+                                        <input formControlName="password" type="password"
+                                            class="form-control form-control-user" id="exampleInputPassword"
+                                            placeholder="Password">
+                                        <span *ngIf="password.invalid && password.dirty" class="err">
+                                            Please enter at least 6 characters
+                                        </span>
+                                    </div>
+                                    <div [ngClass]="isSignup && 'col-sm-6'" *ngIf="isSignup">
+                                        <input formControlName="passwordConfirm" type="password"
+                                            class="form-control form-control-user" id="exampleRepeatPassword"
+                                            placeholder="Repeat Password">
+                                        <span *ngIf="passwordConfirm.dirty && !passwordDoesMatch" class="err">
+                                            Password does not match
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" *ngIf="!isPasswordReset">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input formControlName="remember" type="checkbox" class="custom-control-input"
+                                            id="customCheck" />
+                                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                    </div>
+                                </div>
+
+                                <button *ngIf="isPasswordReset" [disabled]="form.invalid || loading" type="submit"
+                                    class="btn btn-primary btn-user btn-block">
+                                    Send Reset Email
+                                </button>
+
+                                <button *ngIf="!isPasswordReset && !isSignup "
+                                    [disabled]="(password.invalid || email.invalid) || loading" type="submit"
+                                    class="btn btn-primary btn-user btn-block">
+                                    Login
+                                </button>
+
+                                <button *ngIf="!isPasswordReset && !isLogin"
+                                    [disabled]="form.invalid || loading || !passwordDoesMatch" type="submit"
+                                    class="btn btn-primary btn-user btn-block">
+                                    Create an Account
+                                </button>
+
+                                <span class="text-center err">{{serverMessage}}</span>
+                                <hr *ngIf="!isPasswordReset" />
+                                <button type="button" *ngIf="!isPasswordReset" appGoogleSignin
+                                    class="btn btn-google btn-user btn-block">
+                                    <i class="fab fa-google fa-fw"></i> Login with Google
+                                </button>
+                                <a href="#" *ngIf="!isPasswordReset" class="btn btn-facebook btn-user btn-block">
+                                    <i class="fab fa-facebook-f fa-fw"></i> Login with
+                                    Facebook
+                                </a>
+                            </form>
+                            <hr />
+                            <div class="text-center">
+                                <a class="small" *ngIf="isLogin && !isPasswordReset" (click)="changeType('reset')">
+                                    Forgot Password?
+                                </a>
+                            </div>
+
+                            <div class="text-center">
+                                <a class="small" *ngIf="isPasswordReset" (click)="changeType('signup')">
+                                    Go back?
+                                </a>
+                            </div>
+
+                            <div class="text-center">
+                                <a class="small" *ngIf="isLogin" (click)="changeType('signup')">
+                                    Create an Account!
+                                </a>
+                            </div>
+
+                            <div class="text-center">
+                                <a class="small" *ngIf="isSignup" (click)="changeType('login')">
+                                    Alread have an account? Login
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,185 @@
+<div class="container-fluid contain">
+    <div class="tab-pane fade show active" id="sidebar-1-1" role="tabpanel" aria-labelledby="sidebar-1-1">
+        <!-- Page Heading -->
+        <form [formGroup]="createEventForm" (ngSubmit)="(onSubmit())" class="user">
+            <div class="row gutter-1">
+                <div class="col-md-6 mb-3">
+                    <h1 class="h2 text-gray-900">Event Details</h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput1">Event Name</label>
+                                <input id="exampleInput1" type="text" class="form-control" placeholder="Event Name" 
+                                formControlName="eventName" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput2">Organized By</label>
+                                <input id="exampleInput2" type="text" class="form-control" placeholder="Organized By" 
+                                formControlName="eventOrganizedBy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputGroupSelect01">Choose Categories</label>
+                        <select class="custom-select" id="inputGroupSelect01"
+                        formControlName="eventCategory">
+                            <option selected>Choose...</option>
+                            <option *ngFor="let category of eventsService.categories async" [value]="category.id" >
+                            {{category.name}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInput3">Description</label>
+                        <textarea class="form-control" rows="3" placeholder="Event summary in few words"
+                        formControlName="eventDescription"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- <div class="form-group">
+                                <label for="exampleFormControlFile1">Select Thumbnail</label>
+                                <input type="file" accept="image/*" class="form-control-file" id="exampleFormControlFile1"
+                                formControlName="eventThumbnail"
+                                (change)="getThumb($event)"
+                                />
+                            </div> -->
+                            <div class="form-group">
+                                <label for="Thumb">Thumb Image Url</label>
+                                <input id="Thumb" type="url" class="form-control" placeholder="Organized By" 
+                                formControlName="eventThumbnailUrl" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- <div class="form-group">
+                                <label for="exampleFormControlFile1">Select Banner</label>
+                                <input type="file" accept="image/*" class="form-control-file" id="exampleFormControlFile1"
+                                formControlName="eventBanner"
+                                (change)="getBanner($event)" />
+                            </div> -->
+                            <div class="form-group">
+                                <label for="Banner">Banner Image Url</label>
+                                <input id="Banner" type="url" class="form-control" placeholder="Organized By" 
+                                formControlName="eventBannerUrl" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput7">Event Starting date</label>
+                                <input id="exampleInput7" type="date" class="form-control" placeholder="Event startng date"
+                                formControlName="eventDate"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput7">Event's Last Date</label>
+                                <input id="exampleInput7" type="date" class="form-control" placeholder="Due date" 
+                                formControlName="eventDueDate"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput6">No. of Tickets</label>
+                                <input id="exampleInput6" type="number" class="form-control" placeholder="Number of Tickets" 
+                                formControlName="eventTickets" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput6">Ticket Price</label>
+                                <input id="exampleInput6" type="number" class="form-control" placeholder="Ticket Price" 
+                                formControlName="eventTicketPrice"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInput6">Redirect URl</label>
+                        <input id="exampleInput6" type="url" class="form-control" placeholder="Redirect URL" 
+                        formControlName="eventRedirectUrl"/>
+                    </div>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="col-md-6 mb-3" formGroupName="eventDetails">
+                    <h1 class="h2 text-gray-900">Contact Details</h1>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput7">Email</label>
+                                <input id="exampleInput7" type="text" class="form-control" placeholder="Email" 
+                                formControlName="eventEmail"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput6">Phone no</label>
+                                <input id="exampleInput6" type="number" class="form-control" placeholder="Phone Number to Contact" 
+                                formControlName="eventPhoneNumber"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInput4">Venue address</label>
+                        <input id="exampleInput4" type="text" class="form-control" placeholder="Event Address" 
+                        formControlName="eventAddress"/>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput4">City</label>
+                                <input id="exampleInput4" type="text" class="form-control" placeholder="City" 
+                                formControlName="eventCity"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput5">Zip</label>
+                                <input id="exampleInput5" type="number" class="form-control" placeholder="Zip" 
+                                formControlName="eventZip"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h5 mt-3 text-gray-900">Social Media Links</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput4">Instgram</label>
+                                <input id="exampleInput4" type="url" class="form-control" placeholder="Instgram" 
+                                formControlName="eventSocialInstagram"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput5">Facebook</label>
+                                <input id="exampleInput5" type="url" class="form-control" placeholder="Facebook
+                                formControlName="eventSocialFacebook"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h5 mt-3 text-gray-900">Frequenty Asked Questions</div>
+                    <textarea class="form-control" rows="2" placeholder="Event summary in few words"
+                    formControlName="eventFaq"></textarea>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" [disabled]="createEventForm.invalid" class="btn btn-primary">Create Event</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="card e-card shadow border-0">
+    <a href="events-detail.html">
+        <div class="m-card-cover">
+            <img src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fe1.jpg?alt=media&token=6a33e492-b81d-473e-bafa-121467566cfa"
+                class="card-img-top" alt="...">
+        </div>
+        <div class="card-body p-0">
+            <div class="row no-gutters align-items-center">
+                <div class="col-2 auto py-3 pl-3">
+                    <div class="bg-white rounded text-center">
+                        <h6 class="text-danger mb-0 font-weight-bold">07</h6>
+                        <small class="text-muted">OCT</small>
+                    </div>
+                </div>
+                <div class="col-10 p-3">
+                    <p class="card-text text-gray-900 mb-1">{{ event.eventName }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <i class="fas fa-map-marker-alt fa-sm ml-1"></i>
+                            {{ event.eventDetails.eventCity }}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
