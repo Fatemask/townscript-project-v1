@@ -13,6 +13,11 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
   },
+  {
+    path: "dashboard",
+    loadChildren: () =>
+      import('./modules/dashboard/dashboard.module').then(p => p.DashboardModule)
+  },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: ErrPageComponent }
 ];
