@@ -30,21 +30,12 @@ export class EventsService {
         createEventRef.doc(id).set({...data, uid: user.uid, is_verified: false, is_sponserd: false});
         createDetailsRef.add({...eventDetails, eid: id});
   
-      } 
+      } else {
+        console.log('you are not logged!');
+      }
     })
   }
 
-  /**
-   * Created Event Details
-   */
-  async createEventDetails(data: any, id: string) {
-    const user = await this.afAuth.currentUser;
-    return this.db.collection('boards').add({
-      ...data,
-      eid: id,
-      uid: user.uid,
-    });
-  }
 
   /**
    * Get Categories
@@ -89,13 +80,16 @@ export class EventsService {
   /**  
    * Get Event Detais
    */
-  getAllEventDetails() {
-    return this.db.collection('details').valueChanges();
+  getEventById(id: string) {
+    return this.db.collection('events').doc(id).valueChanges();
   }
   /**  
    * Get Event Detais
    */
   getEventDetails(id: string) {
-    return this.db.collection('details').doc(id).valueChanges();
+    return this.db.collection('details', ref => 
+      ref.where('eid', '==', id))
+    .valueChanges({idField: 'id'});
   }
+  
 }
