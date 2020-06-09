@@ -11,6 +11,7 @@ export class CreateEventComponent implements OnInit {
 
   createEventForm: FormGroup;
   serverMessage: string;
+  loading: boolean = false;
 
   constructor(
     public eventsService: EventsService,
@@ -44,11 +45,29 @@ export class CreateEventComponent implements OnInit {
     this.eventsService.getEventCategories();
   }
 
+  // form control of event formGroup
+  get fc(): any {
+    return this.createEventForm['controls'];
+  }
+
+  //form control of details formGroup
+  get dfc(): any {
+    return this.createEventForm['controls'].eventDetails['controls'];
+  }
+
   
   onSubmit() {
+    this.loading = true;
     const data = this.createEventForm.value;
+    data.eventCity = data.eventDetails.eventCity;
+    data.eventDetails.eventDescription = data.eventDescription;
+    delete data.eventDetails.eventCity;
+    delete data.eventDescription;
     if(this.createEventForm.valid) {
       this.eventsService.createEvent(data);
     }
+    console.log(data);
+    this.loading = false; 
+    this.createEventForm.reset();
   }
 }

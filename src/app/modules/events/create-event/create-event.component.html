@@ -11,6 +11,9 @@
                                 <label for="exampleInput1">Event Name</label>
                                 <input id="exampleInput1" type="text" class="form-control" placeholder="Event Name" 
                                 formControlName="eventName" />
+                                <span class="err" *ngIf="fc.eventName.invalid && (fc.eventName.dirty || fc.eventName.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -18,6 +21,9 @@
                                 <label for="exampleInput2">Organized By</label>
                                 <input id="exampleInput2" type="text" class="form-control" placeholder="Organized By" 
                                 formControlName="eventOrganizedBy" />
+                                <span class="text-red" *ngIf="fc.eventOrganizedBy.invalid && (fc.eventOrganizedBy.dirty || fc.eventOrganizedBy.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -30,12 +36,18 @@
                             <option *ngFor="let category of eventsService.categories async" [value]="category.id" >
                             {{category.name}}</option>
                         </select>
+                        <span class="text-red" *ngIf="fc.eventCategory.invalid && (fc.eventCategory.dirty || fc.eventCategory.touched)">
+                            This field is required.
+                        </span>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInput3">Description</label>
                         <textarea class="form-control" rows="3" placeholder="Event summary in few words"
                         formControlName="eventDescription"></textarea>
+                        <span class="text-red" *ngIf="fc.eventDescription.invalid && (fc.eventDescription.dirty || fc.eventDescription.touched)">
+                            This field is required.
+                        </span>
                     </div>
 
                     <div class="row">
@@ -49,8 +61,11 @@
                             </div> -->
                             <div class="form-group">
                                 <label for="Thumb">Thumb Image Url</label>
-                                <input id="Thumb" type="url" class="form-control" placeholder="Organized By" 
+                                <input id="Thumb" type="url" class="form-control" placeholder="OEvent Thumbnail Image Url" 
                                 formControlName="eventThumbnailUrl" />
+                                <span class="text-red" *ngIf="fc.eventThumbnailUrl.invalid && (fc.eventThumbnailUrl.dirty || fc.eventThumbnailUrl.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -62,8 +77,11 @@
                             </div> -->
                             <div class="form-group">
                                 <label for="Banner">Banner Image Url</label>
-                                <input id="Banner" type="url" class="form-control" placeholder="Organized By" 
+                                <input id="Banner" type="url" class="form-control" placeholder="Event Banner Image Url" 
                                 formControlName="eventBannerUrl" />
+                                <span class="text-red" *ngIf="fc.eventBannerUrl.invalid && (fc.eventBannerUrl.dirty || fc.eventBannerUrl.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -74,6 +92,9 @@
                                 <label for="exampleInput7">Event Starting date</label>
                                 <input id="exampleInput7" type="date" class="form-control" placeholder="Event startng date"
                                 formControlName="eventDate"/>
+                                <span class="text-red" *ngIf="fc.eventDate.invalid && (fc.eventDate.dirty || fc.eventDate.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -81,6 +102,9 @@
                                 <label for="exampleInput7">Event's Last Date</label>
                                 <input id="exampleInput7" type="date" class="form-control" placeholder="Due date" 
                                 formControlName="eventDueDate"/>
+                                <span class="text-red" *ngIf="fc.eventDueDate.invalid && (fc.eventDueDate.dirty || fc.eventDueDate.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -90,6 +114,9 @@
                                 <label for="exampleInput6">No. of Tickets</label>
                                 <input id="exampleInput6" type="number" class="form-control" placeholder="Number of Tickets" 
                                 formControlName="eventTickets" />
+                                <span class="text-red" *ngIf="fc.eventTickets.invalid && (fc.eventTickets.dirty || fc.eventTickets.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -97,6 +124,9 @@
                                 <label for="exampleInput6">Ticket Price</label>
                                 <input id="exampleInput6" type="number" class="form-control" placeholder="Ticket Price" 
                                 formControlName="eventTicketPrice"/>
+                                <span class="text-red" *ngIf="fc.eventTicketPrice.invalid && (fc.eventTicketPrice.dirty || fc.eventTicketPrice.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -104,6 +134,9 @@
                         <label for="exampleInput6">Redirect URl</label>
                         <input id="exampleInput6" type="url" class="form-control" placeholder="Redirect URL" 
                         formControlName="eventRedirectUrl"/>
+                        <span class="text-red" *ngIf="fc.eventRedirectUrl.invalid && (fc.eventRedirectUrl.dirty || fc.eventRedirectUrl.touched)">
+                            This field is required.
+                        </span>
                     </div>
                 </div>
 
@@ -117,6 +150,9 @@
                                 <label for="exampleInput7">Email</label>
                                 <input id="exampleInput7" type="text" class="form-control" placeholder="Email" 
                                 formControlName="eventEmail"/>
+                                <span class="text-red" *ngIf="dfc.eventEmail.invalid && (dfc.eventEmail.dirty || dfc.eventEmail.touched)">
+                                    Email is badly formated
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -124,14 +160,20 @@
                                 <label for="exampleInput6">Phone no</label>
                                 <input id="exampleInput6" type="number" class="form-control" placeholder="Phone Number to Contact" 
                                 formControlName="eventPhoneNumber"/>
+                                <span class="text-red" *ngIf="dfc.eventPhoneNumber.invalid && (dfc.eventPhoneNumber.dirty || dfc.eventPhoneNumber.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInput4">Venue address</label>
-                        <input id="exampleInput4" type="text" class="form-control" placeholder="Event Address" 
+                        <input id="exampleInput4" type="text" class="form-control" placeholder="Event Address, Meeting point, Venue address" 
                         formControlName="eventAddress"/>
+                        <span class="text-red" *ngIf="dfc.eventAddress.invalid && (dfc.eventAddress.dirty || dfc.eventAddress.touched)">
+                            This field is required.
+                        </span>
                     </div>
 
                     <div class="row">
@@ -140,6 +182,9 @@
                                 <label for="exampleInput4">City</label>
                                 <input id="exampleInput4" type="text" class="form-control" placeholder="City" 
                                 formControlName="eventCity"/>
+                                <span class="text-red" *ngIf="dfc.eventCity.invalid && (dfc.eventCity.dirty || dfc.eventCity.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -147,6 +192,9 @@
                                 <label for="exampleInput5">Zip</label>
                                 <input id="exampleInput5" type="number" class="form-control" placeholder="Zip" 
                                 formControlName="eventZip"/>
+                                <span class="text-red" *ngIf="dfc.eventZip.invalid && (dfc.eventZip.dirty || dfc.eventZip.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -156,28 +204,37 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInput4">Instgram</label>
-                                <input id="exampleInput4" type="url" class="form-control" placeholder="Instgram" 
+                                <input id="exampleInput4" type="url" class="form-control" placeholder="Instgram profile url" 
                                 formControlName="eventSocialInstagram"/>
+                                <span class="text-red" *ngIf="dfc.eventSocialInstagram.invalid && (dfc.eventSocialInstagram.dirty || dfc.eventSocialInstagram.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInput5">Facebook</label>
-                                <input id="exampleInput5" type="url" class="form-control" placeholder="Facebook
+                                <input id="exampleInput5" type="url" class="form-control" placeholder="Facebook Pag url"
                                 formControlName="eventSocialFacebook"/>
+                                <span class="text-red" *ngIf="dfc.eventSocialFacebook.invalid && (dfc.eventSocialFacebook.dirty || dfc.eventSocialFacebook.touched)">
+                                    This field is required.
+                                </span>
                             </div>
                         </div>
                     </div>
 
                     <div class="h5 mt-3 text-gray-900">Frequenty Asked Questions</div>
-                    <textarea class="form-control" rows="2" placeholder="Event summary in few words"
+                    <textarea class="form-control" rows="2" placeholder="Frequently Asked Questions"
                     formControlName="eventFaq"></textarea>
+                    <span class="text-red" *ngIf="dfc.eventFaq.invalid && (dfc.eventFaq.dirty || dfc.eventFaq.touched)">
+                        This field is required.
+                    </span>
                 </div>
 
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="submit" [disabled]="createEventForm.invalid" class="btn btn-primary">Create Event</button>
+                    <button type="submit" [disabled]="createEventForm.invalid || loading" class="btn btn-primary">Create Event</button>
                 </div>
             </div>
         </form>
