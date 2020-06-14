@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private db: AngularFirestore,
     private fb: FormBuilder,
     private router: Router
   ) {}
@@ -88,12 +90,11 @@ export class LoginComponent implements OnInit {
     try {
       if (this.isLogin) {
         const res = await this.afAuth.signInWithEmailAndPassword(email, password);
-        if (res) this.router.navigate(['']);
         if (this.remember.value) {
-          localStorage.setItem('uid', JSON.stringify(res.user));
+          localStorage.setItem('uid', JSON.stringify(res.user.uid));
         }
-        // console.log(res.user.email);
-        // console.log(res.user.uid);
+        this.setUser(res.user, this.firstName.value, this.lastName.value);
+        if (res) this.router.navigate(['']);
       }
       if (this.isSignup) {
         const res = await this.afAuth.createUserWithEmailAndPassword(
@@ -103,6 +104,8 @@ export class LoginComponent implements OnInit {
         if (this.remember.value) {
           localStorage.setItem('uid', JSON.stringify(res.user.uid));
         }
+        this.setUser(res.user, this.firstName.value, this.lastName.value);
+        if (res) this.router.navigate(['']);
       }
       if (this.isPasswordReset) {
         await this.afAuth.sendPasswordResetEmail(email);
@@ -112,5 +115,22 @@ export class LoginComponent implements OnInit {
       this.serverMessage = err;
     }
     this.loading = false;
+  }
+
+  setUser(user, firstName: string, lastName: string) {
+    this.db.collection('users').doc(user.uid).set({
+      firstName: firstName,
+      lastName: lastName,
+      isCreator: false
+    })
+    const localUser = {
+      uid: user.uid,
+      email: user.email,
+      photoURL: user.photoURL,
+      displayName: user.displayName,
+      firstName: firstName,
+      lastName: lastName,
+    };
+    localStorage.setItem('user', JSON.stringify(localUser));
   }
 }
