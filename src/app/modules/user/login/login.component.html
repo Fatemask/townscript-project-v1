@@ -84,13 +84,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group" *ngIf="!isPasswordReset">
-                                    <div class="custom-control custom-checkbox small">
-                                        <input formControlName="remember" type="checkbox" class="custom-control-input"
-                                            id="customCheck" />
-                                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                    </div>
-                                </div>
 
                                 <button *ngIf="isPasswordReset" [disabled]="form.invalid || loading" type="submit"
                                     class="btn btn-primary btn-user btn-block">

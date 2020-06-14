@@ -1,0 +1,133 @@
+<section class="pt-5 pb-5 bg-gradient-primary text-white pl-4 pr-4 inner-profile mb-4">
+    <div class="row gutter-2 gutter-md-4 align-items-end">
+        <div class="col-md-6 text-center text-md-left">
+            <h1 class="mb-1" *ngIf="user && user.displayName">{{ user.displayName }}</h1>
+            <h1 class="mb-1" *ngIf="user && !user.displayName">{{ user.firstName }} {{ user.lastName }}</h1>
+            <span *ngIf="user && !user.email" class="text-muted text-gray-500"><i class="fas fa-map-marker-alt fa-fw fa-sm mr-1"></i> India,
+                {{user.email}}</span>
+        </div>
+        <div class="col-md-6 text-center text-md-right">
+            <button (click)="authService.logOut()" class="btn btn btn-light">Sign out</button>
+        </div>
+    </div>
+</section>
+<div class="row">
+    <div class="col-xl-3 col-lg-3">
+        <div class="bg-white p-3 widget shadow rounded mb-4">
+            <div class="nav nav-pills flex-column lavalamp" id="sidebar-1" role="tablist">
+                <a class="nav-link active" data-toggle="tab" href="#sidebar-1-1" role="tab" aria-controls="sidebar-1"
+                    aria-selected="true"><i class="fas fa-user-circle fa-sm fa-fw mr-2 text-gray-400"></i> Profile</a>
+                <a class="nav-link" data-toggle="tab" href="#sidebar-1-4" role="tab" aria-controls="sidebar-1-4"
+                    aria-selected="false"><i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i> Account Settings</a>
+                <a class="nav-link" (click)="authService.logOut()">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-lg-9">
+        <div class="bg-white p-3 widget shadow rounded mb-4">
+            <div class="tab-content" id="myTabContent">
+                <!-- profile -->
+                <div class="tab-pane fade active show" id="sidebar-1-1" role="tabpanel" aria-labelledby="sidebar-1-1">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-3">
+                        <h1 class="h5 mb-0 text-gray-900">Profile</h1>
+                    </div>
+                    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                    <div class="row gutter-1">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput1">First Name</label>
+                                <input id="exampleInput1" type="text" class="form-control" placeholder="First name"
+                                    formControlName="firstName">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput2">Last Name</label>
+                                <input id="exampleInput2" type="text" class="form-control" placeholder="Last name"
+                                    formControlName="lastName">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput3">Company</label>
+                                <input id="exampleInput3" type="text" class="form-control" placeholder="Company"
+                                    formControlName="companyName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInput4">Street</label>
+                                <input id="exampleInput4" type="text" class="form-control" placeholder="Street"
+                                    formControlName="street">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInput5">Zip</label>
+                                <input id="exampleInput5" type="number" class="form-control" placeholder="Zip"
+                                    formControlName="zip">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput6">Telephone</label>
+                                <input id="exampleInput6" type="number" class="form-control" placeholder="Telephone"
+                                    formControlName="mobileNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInput7">Email</label>
+                                <input id="exampleInput7" type="text" class="form-control" placeholder="Email"
+                                [value]="email" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button *ngIf="isDesabled" (click)="disableInput()" type="button" class="btn btn-primary">
+                                Edit Profile
+                            </button>
+                            <button *ngIf="!isDesabled" type="submit" class="btn btn-primary">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+
+                <!-- payments -->
+                <div class="tab-pane fade" id="sidebar-1-4" role="tabpanel" aria-labelledby="sidebar-1-4">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-3">
+                        <h1 class="h5 mb-0 text-gray-900">Account Settings</h1>
+                    </div>
+                    <div class="row gutter-1">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="exampleInput77">Email</label>
+                                <input id="exampleInput77" type="text" class="form-control" placeholder="Email"
+                                [formControl]="resetEmail">
+                                <span *ngIf="resetError" class="err">{{ resetError }}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-primary" [disabled]="resetEmail.invalid" (click)="sendEmail()">
+                                Send Password Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+</div>
