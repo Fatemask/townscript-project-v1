@@ -35,7 +35,7 @@
             </div>
             <div class="col-lg-5 text-right">
                <a href="#" class="d-sm-inline-block btn btn-danger shadow-sm mr-1"><i class="fas fa-share-alt"></i></a>
-               <a (click)="joinEvent(ed.id)" class="d-sm-inline-block btn btn-primary shadow-sm"> Join Event <i
+               <a (click)="joinEvent(ed.id)" [disabled]="joined" class="d-sm-inline-block btn btn-primary shadow-sm"> Join Event <i
                      class="fas fa-plus fa-sm  ml-1"></i></a>
             </div>
          </div>
