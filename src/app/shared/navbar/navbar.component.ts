@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -8,13 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class NavbarComponent implements OnInit {
   navToggle = false;
+  constructor(public afAuth: AngularFireAuth) {}
 
-  constructor(
-    public afAuth: AngularFireAuth
-  ) { }
-
-  ngOnInit(): void {
-  
-  }
-
+  ngOnInit(): void {}
 }
