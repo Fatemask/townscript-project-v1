@@ -11,6 +11,7 @@ export class EventDetailsComponent implements OnInit {
 
   ed;
   loading: boolean = false;
+  joined: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +40,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   joinEvent(id: string) {
+    joined = true;
     this.eventService.joinEvent(id);
   }
 
