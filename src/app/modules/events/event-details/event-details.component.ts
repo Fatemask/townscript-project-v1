@@ -19,12 +19,16 @@ export class EventDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.eventService.getEventById(id).subscribe({
-      next: et => {
-        this.ed = et;
-        this.loading = false;
-      },
-      // error: err => console.log(err),
+    this.eventService.getEventById(id)
+    .subscribe(
+      {
+        next: et => {
+          this.ed = et;
+          this.ed.id = id;
+          this.loading = true;
+        },
+      error: err => console.log(err),
+      complete: () => this.loading = false,
     });
     this.eventService.getEventDetails(id).subscribe(eventDetails => { 
       this.ed.eventDetails = eventDetails[0];
@@ -32,6 +36,10 @@ export class EventDetailsComponent implements OnInit {
     });
     console.log(id);
     console.log(this.ed);
+  }
+
+  joinEvent(id: string) {
+    this.eventService.joinEvent(id);
   }
 
 }

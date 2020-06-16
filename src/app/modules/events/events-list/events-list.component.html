@@ -7,7 +7,7 @@
 <!-- Content Row -->
 <div class="row">
    <div class="col-xl-3 col-lg-4">
-      <div class="filters mobile-filters shadow rounded bg-white mb-4 d-none d-block d-md-none" *ngIf="mobile">
+      <div class="filters mobile-filters shadow rounded bg-white mb-4" *ngIf="mobile">
          <div class="border-bottom">
             <a class="h6 font-weight-bold text-dark d-block m-0 p-3" data-toggle="collapse" href="#mobile-filters"
                role="button" aria-expanded="false" aria-controls="mobile-filters">Filter By <i
@@ -38,7 +38,7 @@
                            *ngFor="let category of eventService.categories">
                            <input type="checkbox" class="custom-control-input" [id]="category.id"
                            (change)="getCategory($event)">
-                           <label class="custom-control-label" [for]="category.id">{{ category.name }} <small
+                           <label class="custom-control-label" [for]="category.id"><small
                                  class="text-black-50">{{ category.name }}</small></label>
                         </div>
                         <div class="mt-2"><a href="#" class="link">See all</a></div>
@@ -79,8 +79,7 @@
                            *ngFor="let category of eventService.categories">
                            <input type="checkbox" class="custom-control-input" [id]="category.id"
                            (change)="getCategory($event)">
-                           <label class="custom-control-label" [for]="category.id">{{ category.name }} <small
-                                 class="text-black-50">{{ category.name }}</small></label>
+                           <label class="custom-control-label" [for]="category.id">{{ category.name }}</label>
                         </div>
 
                         <div class="mt-2"><a href="#" class="link">See all</a></div>

@@ -82,7 +82,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInput7">Email</label>
-                                <input id="exampleInput7" type="text" class="form-control" placeholder="Email"
+                                <input *ngIf="email" id="exampleInput7" type="text" class="form-control" placeholder="Email"
                                 [value]="email" disabled>
                             </div>
                         </div>

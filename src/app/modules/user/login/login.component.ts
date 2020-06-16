@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
+    private authService: AuthService,
     private fb: FormBuilder,
     private router: Router
   ) {}
@@ -30,7 +32,6 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6), Validators.required]],
       passwordConfirm: ['', []],
-      remember: ['']
     });
   }
 
@@ -78,37 +79,25 @@ export class LoginComponent implements OnInit {
       return this.password.value === this.passwordConfirm.value;
     }
   }
-  get remember() {
-    return this.form.get('remember');
-  }
+
 
   async onSubmit() {
     this.loading = true;
     const email = this.email.value;
     const password = this.password.value;
-    console.log(this.remember.value);
+    const firstName = this.firstName.value;
+    const lastName = this.lastName.value;
     try {
       if (this.isLogin) {
-        const res = await this.afAuth.signInWithEmailAndPassword(email, password);
-        if (this.remember.value) {
-          localStorage.setItem('uid', JSON.stringify(res.user.uid));
-        }
-        this.setUser(res.user, this.firstName.value, this.lastName.value);
-        if (res) this.router.navigate(['']);
+        await this.authService.signIn(email, password)
+        this.router.navigate(['']);
       }
       if (this.isSignup) {
-        const res = await this.afAuth.createUserWithEmailAndPassword(
-          email,
-          password
-        );
-        if (this.remember.value) {
-          localStorage.setItem('uid', JSON.stringify(res.user.uid));
-        }
-        this.setUser(res.user, this.firstName.value, this.lastName.value);
-        if (res) this.router.navigate(['']);
+        await this.authService.signUp(firstName, lastName, email, password)
+        this.router.navigate(['']);
       }
       if (this.isPasswordReset) {
-        await this.afAuth.sendPasswordResetEmail(email);
+        await this.authService.passwordReset(email);
         this.serverMessage = 'Check Your Email';
       }
     } catch (err) {
@@ -117,20 +106,4 @@ export class LoginComponent implements OnInit {
     this.loading = false;
   }
 
-  setUser(user, firstName: string, lastName: string) {
-    this.db.collection('users').doc(user.uid).set({
-      firstName: firstName,
-      lastName: lastName,
-      isCreator: false
-    })
-    const localUser = {
-      uid: user.uid,
-      email: user.email,
-      photoURL: user.photoURL,
-      displayName: user.displayName,
-      firstName: firstName,
-      lastName: lastName,
-    };
-    localStorage.setItem('user', JSON.stringify(localUser));
-  }
 }
