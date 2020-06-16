@@ -1,3 +1,5 @@
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/events.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,23 +10,31 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
-
   createEventForm: FormGroup;
   serverMessage: string;
-  loading: boolean = false;
-
+  loading: boolean = true;
+  poster;
+  banner;
+  error: boolean;
+  isCreator: boolean;
+  data;
+  id;
+  creatorVerified;
   constructor(
     public eventsService: EventsService,
     private fb: FormBuilder,
-  ) { }
-
+    private afAuth: AngularFireAuth,
+    private db: AngularFirestore
+  ) {
+    this.eventsService.getEventCategories();
+  }
   ngOnInit(): void {
     this.createEventForm = this.fb.group({
       eventName: ['', [Validators.required]],
       eventOrganizedBy: ['', [Validators.required]],
       eventCategory: ['', [Validators.required]],
       eventDescription: ['', [Validators.required]],
-      eventDate: ['', [Validators.required,]],
+      eventDate: ['', [Validators.required]],
       eventDueDate: ['', [Validators.required]],
       eventThumbnailUrl: ['', [Validators.required]],
       eventBannerUrl: ['', [Validators.required]],
@@ -42,7 +52,27 @@ export class CreateEventComponent implements OnInit {
         eventFaq: ['', [Validators.required]]
       })
     });
-    this.eventsService.getEventCategories();
+    this.eventsService.userData();
+    setTimeout(() => {
+      this.data = this.eventsService.data;
+      console.log(this.data);
+      if (this.data.isCreator == true) {
+        this.isCreator = true;
+      }
+      if (this.data.creatorVerified) {
+        this.creatorVerified = true;
+      }
+      this.loading = false;
+    }, 1000);
+    /* this.db
+    .collection('users')
+    .doc(this.id)
+    .valueChanges()
+    .subscribe(u => (this.data = u));
+    console.log(this.data);
+    if (this.data.isCreator == true) {
+      this.isCreator = true;
+    } */
   }
 
   // form control of event formGroup
@@ -55,19 +85,28 @@ export class CreateEventComponent implements OnInit {
     return this.createEventForm['controls'].eventDetails['controls'];
   }
 
-  
-  onSubmit() {
+  getPoster(file) {
+    this.poster = file;
+  }
+
+  getBanner(file) {
+    this.banner = file;
+  }
+
+  async onSubmit() {
     this.loading = true;
     const data = this.createEventForm.value;
     data.eventCity = data.eventDetails.eventCity;
     data.eventDetails.eventDescription = data.eventDescription;
     delete data.eventDetails.eventCity;
     delete data.eventDescription;
-    if(this.createEventForm.valid) {
-      this.eventsService.createEvent(data);
+    if (this.createEventForm.valid) {
+      await this.eventsService.createEvent(data);
+      await this.eventsService.uploadFile(this.banner, 'banner');
+      await this.eventsService.uploadFile(this.poster, 'poster');
     }
     console.log(data);
-    this.loading = false; 
-    this.createEventForm.reset();
+    this.loading = false;
+    /* this.createEventForm.reset(); */
   }
 }

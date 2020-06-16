@@ -1,3 +1,6 @@
+import { CoreModule } from './core/core.module';
+import { CommonModule } from '@angular/common';
+import { EventsRoutingModule } from './modules/events/events.routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -10,22 +13,22 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { ErrPageComponent } from './err-page/err-page.component';
-import { CoreModule } from './core/core.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrPageComponent
-  ],
+  declarations: [AppComponent, ErrPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     SharedModule,
-    CoreModule
+    CoreModule,
+    EventsRoutingModule,
+    CommonModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

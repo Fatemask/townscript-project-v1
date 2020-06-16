@@ -1,107 +1,164 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-3">
-   <h1 class="h5 mb-0 text-gray-900">Events</h1>
-   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Reset Filters <i
-         class="fas fa-times fa-sm text-white-50"></i></a>
+  <h1 class="h5 mb-0 text-gray-900">Events</h1>
+  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+    >Reset Filters <i class="fas fa-times fa-sm text-white-50"></i
+  ></a>
 </div>
 <!-- Content Row -->
 <div class="row">
-   <div class="col-xl-3 col-lg-4">
-      <div class="filters mobile-filters shadow rounded bg-white mb-4" *ngIf="mobile">
-         <div class="border-bottom">
-            <a class="h6 font-weight-bold text-dark d-block m-0 p-3" data-toggle="collapse" href="#mobile-filters"
-               role="button" aria-expanded="false" aria-controls="mobile-filters">Filter By <i
-                  class="fas fa-angle-down float-right mt-1"></i></a>
-         </div>
-         <div id="mobile-filters" class="filters-body collapse multi-collapse">
-            <div id="accordion">
-               <div class="filters-card border-bottom p-3">
-                  <div class="filters-card-header" id="headingTwo">
-                     <h6 class="mb-0">
-                        <a href="#" class="btn-link" data-toggle="collapse" data-target="#collapsetwo"
-                           aria-expanded="true" aria-controls="collapsetwo">
-                           Genre
-                           <i class="fas fa-angle-down float-right"></i>
-                        </a>
-                     </h6>
-                  </div>
-                  <div id="collapsetwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                     <div class="filters-card-body card-shop-filters">
-                        <!-- form search -->
-                        <div class="filters-search mb-3">
-                           <div class="form-group">
-                              <i class="fas fa-search"></i>
-                              <input type="text" class="form-control" placeholder="Start typing to search...">
-                           </div>
-                        </div>
-                        <div class="custom-control custom-checkbox"
-                           *ngFor="let category of eventService.categories">
-                           <input type="checkbox" class="custom-control-input" [id]="category.id"
-                           (change)="getCategory($event)">
-                           <label class="custom-control-label" [for]="category.id"><small
-                                 class="text-black-50">{{ category.name }}</small></label>
-                        </div>
-                        <div class="mt-2"><a href="#" class="link">See all</a></div>
-                     </div>
-                  </div>
-               </div>
+  <div class="col-xl-3 col-lg-4">
+    <div
+      class="filters mobile-filters shadow rounded bg-white mb-4"
+      *ngIf="mobile"
+    >
+      <div class="border-bottom">
+        <a
+          class="h6 font-weight-bold text-dark d-block m-0 p-3"
+          data-toggle="collapse"
+          href="#mobile-filters"
+          role="button"
+          aria-expanded="false"
+          aria-controls="mobile-filters"
+          >Filter By <i class="fas fa-angle-down float-right mt-1"></i
+        ></a>
+      </div>
+      <div id="mobile-filters" class="filters-body collapse multi-collapse">
+        <div id="accordion">
+          <div class="filters-card border-bottom p-3">
+            <div class="filters-card-header" id="headingTwo">
+              <h6 class="mb-0">
+                <a
+                  href="#"
+                  class="btn-link"
+                  data-toggle="collapse"
+                  data-target="#collapsetwo"
+                  aria-expanded="true"
+                  aria-controls="collapsetwo"
+                >
+                  Genre
+                  <i class="fas fa-angle-down float-right"></i>
+                </a>
+              </h6>
             </div>
-         </div>
-      </div>
-      <div class="filters shadow rounded bg-white mb-3 d-none d-sm-none d-md-block">
-         <div class="filters-header border-bottom p-3">
-            <h6 class="m-0 text-dark">Filter By</h6>
-         </div>
-         <div class="filters-body">
-            <div id="accordion">
-               <div class="filters-card border-bottom p-3">
-                  <div class="filters-card-header" id="headingTwo">
-                     <h6 class="mb-0">
-                        <a href="#" class="btn-link" data-toggle="collapse" data-target="#collapsetwo"
-                           aria-expanded="true" aria-controls="collapsetwo">
-                           Genre
-                           <i class="fas fa-angle-down float-right"></i>
-                        </a>
-                     </h6>
+            <div
+              id="collapsetwo"
+              class="collapse"
+              aria-labelledby="headingTwo"
+              data-parent="#accordion"
+            >
+              <div class="filters-card-body card-shop-filters">
+                <!-- form search -->
+                <div class="filters-search mb-3">
+                  <div class="form-group">
+                    <i class="fas fa-search"></i>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Start typing to search..."
+                    />
                   </div>
-                  <div id="collapsetwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-                     <div class="filters-card-body card-shop-filters">
-                        
-                        <!-- search form -->
-                        <div class="filters-search mb-3">
-                           <div class="form-group">
-                              <i class="fas fa-search"></i>
-                              <input type="text" class="form-control" placeholder="Start typing to search...">
-                           </div>
-                        </div>
-
-                        <div class="custom-control custom-checkbox"
-                           *ngFor="let category of eventService.categories">
-                           <input type="checkbox" class="custom-control-input" [id]="category.id"
-                           (change)="getCategory($event)">
-                           <label class="custom-control-label" [for]="category.id">{{ category.name }}</label>
-                        </div>
-
-                        <div class="mt-2"><a href="#" class="link">See all</a></div>
-                     </div>
-                  </div>
-               </div>
-            
+                </div>
+                <div
+                  class="custom-control custom-checkbox"
+                  *ngFor="let category of eventService.categories"
+                >
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    [id]="category.id"
+                    (change)="getCategory($event)"
+                  />
+                  <label class="custom-control-label" [for]="category.id"
+                    ><small class="text-black-50">{{
+                      category.name
+                    }}</small></label
+                  >
+                </div>
+                <div class="mt-2"><a href="#" class="link">See all</a></div>
+              </div>
             </div>
-         </div>
+          </div>
+        </div>
       </div>
-   </div>
-   <div class="col-xl-9 col-lg-8">
-      <div class="row">
-         <div class="col-xl-4 col-md-6 mb-4" *ngFor="let event of events">
-            <app-event-card [event]="event" ></app-event-card>
-         </div>
+    </div>
+    <div
+      class="filters shadow rounded bg-white mb-3 d-none d-sm-none d-md-block"
+    >
+      <div class="filters-header border-bottom p-3">
+        <h6 class="m-0 text-dark">Filter By</h6>
       </div>
-      <div class="text-center mt-1 mb-4 col-12" *ngIf="!events">
-         <!-- <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-         </div> -->
-         <h4>Please Select Catetogory</h4>
+      <div class="filters-body">
+        <div id="accordion">
+          <div class="filters-card border-bottom p-3">
+            <div class="filters-card-header" id="headingTwo">
+              <h6 class="mb-0">
+                <a
+                  href="#"
+                  class="btn-link"
+                  data-toggle="collapse"
+                  data-target="#collapsetwo"
+                  aria-expanded="true"
+                  aria-controls="collapsetwo"
+                >
+                  Genre
+                  <i class="fas fa-angle-down float-right"></i>
+                </a>
+              </h6>
+            </div>
+            <div
+              id="collapsetwo"
+              class="collapse show"
+              aria-labelledby="headingTwo"
+              data-parent="#accordion"
+            >
+              <div class="filters-card-body card-shop-filters">
+                <!-- search form -->
+                <div class="filters-search mb-3">
+                  <div class="form-group">
+                    <i class="fas fa-search"></i>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Start typing to search..."
+                    />
+                  </div>
+                </div>
+
+                <div
+                  class="custom-control custom-checkbox"
+                  *ngFor="let category of eventService.categories"
+                >
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    [id]="category.id"
+                    (change)="getCategory($event)"
+                  />
+                  <label class="custom-control-label" [for]="category.id">{{
+                    category.name
+                  }}</label>
+                </div>
+
+                <div class="mt-2"><a href="#" class="link">See all</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-   </div>
+    </div>
+  </div>
+  <div class="col-xl-9 col-lg-8">
+    <div class="row">
+      <div class="col-xl-4 col-md-6 mb-4" *ngFor="let event of events">
+        <app-event-card [event]="event"></app-event-card>
+      </div>
+    </div>
+    <div class="text-center mt-1 mb-4 col-12" *ngIf="!events">
+      <!-- <div class="spinner-border" role="status">
+           <span class="sr-only">Loading...</span>
+        </div> -->
+      <h4>Please Select Catetogory</h4>
+    </div>
+  </div>
 </div>

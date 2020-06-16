@@ -3,7 +3,7 @@ import {
   FormControl,
   FormBuilder,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +12,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
   user: any;
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
       companyName: [''],
       mobileNumber: [''],
       street: [''],
-      zip: [''],
+      zip: ['']
     });
 
     // disable form after 2s
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
   }
 
   userData() {
-    this.afAuth.authState.subscribe((user) => {
+    this.afAuth.authState.subscribe(user => {
       if (user) {
         this.email = user.email;
         this.db
@@ -79,13 +79,14 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() {
     this.userForm.disable();
-    this.afAuth.authState.subscribe((user) => {
+    this.afAuth.authState.subscribe(user => {
       if (user) {
         this.db
           .collection('users')
           .doc(user.uid)
           .update({
             ...this.userForm.value,
+            isCreator: false
           });
       }
     });
@@ -98,7 +99,7 @@ export class ProfileComponent implements OnInit {
       () => {
         this.resetError = 'Please check your email.';
       },
-      (err) => {
+      err => {
         this.resetError = err;
       }
     );
