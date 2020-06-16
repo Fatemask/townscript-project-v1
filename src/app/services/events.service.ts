@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { switchMap } from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -74,7 +75,7 @@ export class EventsService {
    * Get Categoriy Vise Events
    */
   getCategoryViseEvents(category: string) {
-    return this.db.collection('events',ref => ref.where('eventCategory', '==', category)).valueChanges({idField: 'id' });
+    return this.db.collection('events', ref => ref.where('eventCategory', '==', category)).valueChanges({idField: 'id'});
   }
 
   /**  
@@ -90,6 +91,20 @@ export class EventsService {
     return this.db.collection('details', ref => 
       ref.where('eid', '==', id))
     .valueChanges({idField: 'id'});
+  }
+
+  /** Join login user to events */
+  joinEvent(eid: string) {
+    this.afAuth.authState.subscribe(user => {
+      if(user) {
+        const uid = user.uid;
+        // console.log(`${uid} ${eid}`);
+        this.db.collection('attendees').doc(eid)
+        .set({
+          joinedUsers: firebase.firestore.FieldValue.arrayUnion({ uid, isPaid: false, joinDate: new Date().toLocaleDateString() })
+        })
+      }
+    })
   }
   
 }

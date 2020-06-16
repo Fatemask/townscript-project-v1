@@ -16,8 +16,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ProfileComponent implements OnInit {
   user: any;
-  email?: string = JSON.parse(localStorage.getItem('user')).email;
-  displayName?: string = JSON.parse(localStorage.getItem('user')).displayName;
+  email: any;
   userForm: FormGroup;
   isDesabled: boolean = true;
 
@@ -49,12 +48,17 @@ export class ProfileComponent implements OnInit {
   userData() {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
+        this.email = user.email;
         this.db
           .collection('users')
           .doc(user.uid)
           .valueChanges()
           .subscribe((data: any) => {
             delete data.isCreator;
+            delete data.email;
+            delete data.displayName;
+            delete data.uid;
+            delete data.roles;
             this.user = { ...this.user, ...data };
             for (const field in this.userForm.controls) {
               if (this.user[field] === undefined) {
@@ -80,9 +84,8 @@ export class ProfileComponent implements OnInit {
         this.db
           .collection('users')
           .doc(user.uid)
-          .set({
+          .update({
             ...this.userForm.value,
-            isCreator: false,
           });
       }
     });

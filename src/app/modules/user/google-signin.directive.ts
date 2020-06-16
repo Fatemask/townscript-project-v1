@@ -1,18 +1,18 @@
 import { Directive, HostListener } from "@angular/core";
-import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import 'firebase/auth';
+import { AuthService } from 'src/app/core/auth.service';
+import { Router } from '@angular/router';
 
 @Directive({
     selector: '[appGoogleSignin]'
 })
 export class GoogleSigninDirective {
-    constructor(private afAuth: AngularFireAuth) { }
+    constructor(private authService: AuthService, private router: Router) { }
     @HostListener('click')
     onclick() {
-        this.afAuth.signInWithPopup(new auth.GoogleAuthProvider())
+        this.authService.googleLogin()
         .then(res => {
-            localStorage.setItem('uid', JSON.stringify(res.user.uid));
+            this.router.navigate(['']);
         })
     }
 }

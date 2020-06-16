@@ -21,13 +21,13 @@
         <i class="fas fa-fw fa-home"></i>
         <span>Home</span></a>
     </li>
-    <li class="nav-item" routerLinkActive="active">
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a class="nav-link" [routerLink]="['events']">
         <i class="fas fa-fw fa-glass-cheers"></i>
         <span>Events</span></a>
     </li>
-    <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link" [routerLink]="['events/create-event']">
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a class="nav-link" [routerLink]="['events/create-event']" >
         <i class="fas fa-fw fa-glass-cheers"></i>
         <span>Create Events</span></a>
     </li>
@@ -135,7 +135,7 @@
               aria-haspopup="true" aria-expanded="false"
               *ngIf="afAuth.authState | async as user">
               <span *ngIf="user.displayName" class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.displayName }}</span>
-              <span *ngIf="!user.displayName && userName" class="mr-2 d-none d-lg-inline text-gray-600 small">{{ userName.firstName }} {{ userName.lastName }}</span>
+              <span *ngIf="!user.displayName" class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.email }}</span>
               <img class="img-profile rounded-circle" 
               [src]="user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fs4.png?alt=media&token=11e2d070-2169-4c42-941c-b48502a50269'" />
             </a>

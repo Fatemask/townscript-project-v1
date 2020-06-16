@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ErrPageComponent } from './err-page/err-page.component';
+import { AdminGuard } from './core/admin.guard';
+
+import { redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
+
+const redirectLoggedInToHome = () => redirectLoggedInTo(['']);
 
 const routes: Routes = [
   { path: '',
@@ -11,12 +16,14 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+    ...canActivate(redirectLoggedInToHome)
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     loadChildren: () =>
-      import('./modules/dashboard/dashboard.module').then(p => p.DashboardModule)
+      import('./modules/dashboard/dashboard.module').then(p => p.DashboardModule),
+      canActivate: [AdminGuard]
   },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: ErrPageComponent }
