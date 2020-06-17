@@ -1,4 +1,7 @@
-<div class="row">
+<div *ngIf="loading" class="spinner-border" role="status">
+   <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="ed" class="row">
    <div class="col-xl-12 col-lg-12">
       <div class="cover-pic">
          <!-- <div class="position-absolute bg-white shadow-sm rounded text-center p-2 m-4 love-box">
@@ -35,8 +38,12 @@
             </div>
             <div class="col-lg-5 text-right">
                <a href="#" class="d-sm-inline-block btn btn-danger shadow-sm mr-1"><i class="fas fa-share-alt"></i></a>
-               <a (click)="joinEvent(ed.id)" [disabled]="joined" class="d-sm-inline-block btn btn-primary shadow-sm"> Join Event <i
-                     class="fas fa-plus fa-sm  ml-1"></i></a>
+               <button *ngIf="!paid" (click)="joinEvent(ed.id)" [disabled]="joined" class="d-sm-inline-block btn btn-primary shadow-sm"> 
+                  {{ joined ? 'Booking is Pending' : 'Join Event' }} 
+                  <i class="fas fa-plus fa-sm  ml-1"></i></button>
+               <button *ngIf="paid" class="d-sm-inline-block btn btn-primary shadow-sm"> 
+                  Booked
+                  <i class="fas fa-plus fa-sm  ml-1"></i></button>
             </div>
          </div>
          <div class="row d-flex align-items-center justify-content-between py-3 px-4">

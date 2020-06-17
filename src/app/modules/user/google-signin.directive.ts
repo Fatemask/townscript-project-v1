@@ -1,5 +1,4 @@
 import { Directive, HostListener } from "@angular/core";
-import 'firebase/auth';
 import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
 

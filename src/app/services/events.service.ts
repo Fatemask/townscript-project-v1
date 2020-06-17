@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { switchMap } from 'rxjs/operators';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -101,10 +101,14 @@ export class EventsService {
         // console.log(`${uid} ${eid}`);
         this.db.collection('attendees').doc(eid)
         .set({
-          joinedUsers: firebase.firestore.FieldValue.arrayUnion({ uid, isPaid: false, joinDate: new Date().toLocaleDateString() })
-        })
+            joinedUsers: firebase.firestore.FieldValue.arrayUnion({ uid, isPaid: false, joinDate: new Date().toLocaleDateString() })
+        }, { merge: true })
       }
-    })
+    });
+  }
+
+  getAttendees(eid) {
+    return this.db.collection('attendees').doc(eid).valueChanges();
   }
   
 }

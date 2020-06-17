@@ -10,7 +10,7 @@ export class EventsListComponent implements OnInit {
 
   events:any;
   mobile = false;
-  loading = false;
+  loading: boolean = true;
 
   constructor(
     public eventService: EventsService
@@ -25,12 +25,9 @@ export class EventsListComponent implements OnInit {
   }
 
   getCategory($event) {
-    this.loading = true;
     this.eventService.getCategoryViseEvents($event.target.id).subscribe(events => {
       this.events = events;
-    })
-    console.log(this.events);
-    this.loading = false;
+    }, () => this.loading = false)
   }
 
 }
