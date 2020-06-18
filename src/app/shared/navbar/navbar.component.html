@@ -27,11 +27,11 @@
         <span>Events</span></a>
     </li>
     <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="nav-link" [routerLink]="['events/create-event']" >
+      <a class="nav-link" [routerLink]="['events/create-event']">
         <i class="fas fa-fw fa-glass-cheers"></i>
         <span>Create Events</span></a>
     </li>
-    
+
     <!-- Divider -->
     <hr class="sidebar-divider" />
     <!-- Heading -->
@@ -91,14 +91,32 @@
           <div class="input-group">
             <input type="text" class="form-control bg-white border-0 small"
               placeholder="Search for Movies, Events, Plays, Sports and Activities..." aria-label="Search"
-              aria-describedby="basic-addon2" />
+              aria-describedby="basic-addon2" (keydown)="search($event)" (focus)="focus=!focus" (blur)="onBlur()" />
             <div class="input-group-append">
               <button class="btn bg-white" type="button">
                 <i class="fas fa-search fa-sm"></i>
               </button>
             </div>
           </div>
+
+
+          <div *ngIf="!(results?.length < 1) && focus"
+            class="search-results dropdown-menu dropdown-menu p-3 shadow animated--grow-in"
+            [ngClass]="results ? 'show' : ''">
+            <div class="search-result" *ngFor="let result of results">
+              <a class="dropdown-item" [routerLink]="['events/details', result.id]">{{ result.eventName }}</a>
+            </div>
+          </div>
+
+          <div *ngIf="(results?.length < 1) && focus"
+            class="search-results dropdown-menu dropdown-menu p-3 shadow animated--grow-in show">
+            <div class="search-result">
+              <p>Not Found :(</p>
+            </div>
+          </div>
         </form>
+
+
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
           <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -113,7 +131,8 @@
               <form class="form-inline mr-auto w-100 navbar-search">
                 <div class="input-group">
                   <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2" />
+                    aria-label="Search" aria-describedby="basic-addon2" (keydown)="search($event)"
+                    (focus)="focus=!focus" (blur)="onBlur()" />
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
                       <i class="fas fa-search fa-sm"></i>
@@ -125,19 +144,20 @@
           </li>
           <li class="nav-item no-arrow mx-1">
             <a class="nav-link" routerLink="user/login" *ngIf="!(afAuth.authState | async)">
-               <!-- Counter - Alerts -->
-               <span class="btn btn-primary">Login</span>
+              <!-- Counter - Alerts -->
+              <span class="btn btn-primary">Login</span>
             </a>
-         </li>
+          </li>
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false"
-              *ngIf="afAuth.authState | async as user">
-              <span *ngIf="user.displayName" class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.displayName }}</span>
-              <span *ngIf="!user.displayName" class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.email }}</span>
-              <img class="img-profile rounded-circle" 
-              [src]="user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fs4.png?alt=media&token=11e2d070-2169-4c42-941c-b48502a50269'" />
+              aria-haspopup="true" aria-expanded="false" *ngIf="afAuth.authState | async as user">
+              <span *ngIf="user.displayName"
+                class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.displayName }}</span>
+              <span *ngIf="!user.displayName"
+                class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.email }}</span>
+              <img class="img-profile rounded-circle"
+                [src]="user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fs4.png?alt=media&token=11e2d070-2169-4c42-941c-b48502a50269'" />
             </a>
 
             <!-- Dropdown - User Information -->
@@ -158,7 +178,7 @@
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
       <div class="container-fluid">
-      <ng-content></ng-content>
+        <ng-content></ng-content>
       </div>
     </div>
   </div>

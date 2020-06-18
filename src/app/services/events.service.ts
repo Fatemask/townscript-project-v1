@@ -112,14 +112,8 @@ export class EventsService {
     return this.db.collection('attendees').doc(eid).valueChanges();
   }
 
-  getSearchedEvent(startAt): Observable<any[]> {
-    return this.db.collection('events', ref => 
-    ref
-      .orderBy('eventName')
-      .startAt(startAt)
-      .endAt('\uf8ff')
-      .limit(10))
-      .valueChanges();
+  getSearchedEvent(start, end) {
+    return this.db.collection('events', ref => ref.limit(4).orderBy('eventName').startAt(start).endAt(end)).valueChanges({idField: 'id'});
   }
   
 }
