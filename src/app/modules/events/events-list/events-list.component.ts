@@ -10,7 +10,7 @@ export class EventsListComponent implements OnInit {
 
   events:any;
   mobile = false;
-  loading: boolean = true;
+  loading = true;
 
   constructor(
     public eventService: EventsService
@@ -20,14 +20,24 @@ export class EventsListComponent implements OnInit {
     if (window.screen.width === 375) { // 768px portrait
       this.mobile = true;
     }
-    this.events = this.eventService.getEventCategories();
+
+    this.eventService.getEventCategories();
+    this.eventService.getAllEvents().subscribe(ev => {
+      this.loading = false;
+      this.events = ev;
+    })
     
   }
 
   getCategory($event) {
-    this.eventService.getCategoryViseEvents($event.target.id).subscribe(events => {
-      this.events = events;
-    }, () => this.loading = false)
+    this.loading = true;
+    if ($event.target.checked) {
+      this.eventService.getCategoryViseEvents($event.target.id).subscribe(events => {
+        this.events = events;
+        this.loading = false;
+      })
+    } else {
+      this.loading = false;
+    }
   }
-
 }

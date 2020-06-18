@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +110,16 @@ export class EventsService {
 
   getAttendees(eid) {
     return this.db.collection('attendees').doc(eid).valueChanges();
+  }
+
+  getSearchedEvent(startAt): Observable<any[]> {
+    return this.db.collection('events', ref => 
+    ref
+      .orderBy('eventName')
+      .startAt(startAt)
+      .endAt('\uf8ff')
+      .limit(10))
+      .valueChanges();
   }
   
 }

@@ -39,22 +39,15 @@ export class EventDetailsComponent implements OnInit {
       })
     }, () => { console.log(this.loading);this.loading = false })
 
-    this.eventService.getEventById(id)
-    .subscribe(
-      {
-        next: et => {
-          this.ed = et;
-          this.ed.id = id;
-          this.loading = true;
-        },
-      error: err => console.log(err),
+    this.eventService.getEventById(id).subscribe(et => {
+      this.ed = et;
+      this.ed.id = id;
+      this.loading = false;
     });
     this.eventService.getEventDetails(id).subscribe(eventDetails => { 
       this.ed.eventDetails = eventDetails[0];
       console.log(eventDetails) 
     });
-    console.log(id);
-    console.log(this.ed);
   }
 
   joinEvent(id: string) {
