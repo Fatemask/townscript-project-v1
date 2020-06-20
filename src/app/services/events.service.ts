@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { switchMap } from 'rxjs/operators';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -165,19 +166,22 @@ export class EventsService {
       if (user) {
         const uid = user.uid;
         // console.log(`${uid} ${eid}`);
-        this.db
-          .collection('attendees')
-          .doc(eid)
-          .set({
-            joinedUsers: firebase.firestore.FieldValue.arrayUnion({
-              uid,
-              isPaid: false,
-              joinDate: new Date().toLocaleDateString()
-            })
-          });
+        this.db.collection('attendees').doc(eid)
+        .set({
+            joinedUsers: firebase.firestore.FieldValue.arrayUnion({ uid, isPaid: false, joinDate: new Date().toLocaleDateString() })
+        }, { merge: true })
       }
     });
   }
+
+  getAttendees(eid) {
+    return this.db.collection('attendees').doc(eid).valueChanges();
+  }
+
+  getSearchedEvent(start, end) {
+    return this.db.collection('events', ref => ref.limit(4).orderBy('eventName').startAt(start).endAt(end)).valueChanges({idField: 'id'});
+  }
+
   async applyCreator() {
     this.db
       .collection('users')
@@ -191,4 +195,41 @@ export class EventsService {
         e => console.log('Error in user', e)
       );
   }
+
+  addLike(eid: string) {
+    this.afAuth.authState.subscribe(user => {
+      if(user) {
+        this.db.collection('users').doc(user.uid)
+        .set({
+            likedEvents: firebase.firestore.FieldValue.arrayUnion({ eid })
+        }, { merge: true })
+      }
+    })
+  }
+
+  removeLike(eid) {
+    this.afAuth.authState.subscribe(user => {
+      if(user) {
+        this.db.collection('users').doc(user.uid)
+        .update({
+          "likedEvents": firebase.firestore.FieldValue.arrayRemove({ eid })
+        });
+      }
+    })
+  }
+
+  getAllLikes(eid: string) {
+    return this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.db
+            .collection('users', ref => ref.where('likedEvents', 'array-contains', eid))
+            .valueChanges();
+        } else {
+          return [];
+        }
+      })
+    );
+  }
+
 }

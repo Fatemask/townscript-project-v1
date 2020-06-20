@@ -1,8 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
@@ -18,8 +16,6 @@ export class LoginComponent implements OnInit {
   serverMessage: string;
 
   constructor(
-    private afAuth: AngularFireAuth,
-    private db: AngularFirestore,
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router

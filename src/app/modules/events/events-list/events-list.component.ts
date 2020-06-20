@@ -9,7 +9,7 @@ import { EventsService } from 'src/app/services/events.service';
 export class EventsListComponent implements OnInit {
   events: any;
   mobile = false;
-  loading = false;
+  loading = true;
 
   constructor(public eventService: EventsService) {}
 
@@ -18,18 +18,23 @@ export class EventsListComponent implements OnInit {
       // 768px portrait
       this.mobile = true;
     }
-    this.events = this.eventService.getEventCategories();
+
+    this.eventService.getEventCategories();
+    this.eventService.getAllEvents().subscribe(ev => {
+      this.loading = false;
+      this.events = ev;
+    })
   }
 
   getCategory($event) {
     this.loading = true;
-    console.log($event.target.id);
-    this.eventService
-      .getCategoryViseEvents($event.target.id)
-      .subscribe(events => {
+    if ($event.target.checked) {
+      this.eventService.getCategoryViseEvents($event.target.id).subscribe(events => {
         this.events = events;
-        console.log(this.events);
-      });
-    this.loading = false;
+        this.loading = false;
+      })
+    } else {
+      this.loading = false;
+    }
   }
 }

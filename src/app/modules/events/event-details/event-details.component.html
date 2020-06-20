@@ -1,133 +1,117 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xl-12 col-lg-12">
-      <div class="">
-        <!-- <div class="position-absolute bg-white shadow-sm rounded text-center p-2 m-4 love-box">
+
+<div class="text-center mt-1 mb-4 col-12" *ngIf="loading">
+   <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+   </div>
+   <h4>Loading</h4>
+</div>
+<div *ngIf="ed" class="row">
+   <div class="col-xl-12 col-lg-12">
+      <div class="cover-pic">
+         <div *ngIf="liked" class="position-absolute bg-white shadow-sm rounded text-center p-2 m-4 love-box">
             <h6 class="text-gray-900 mb-0 font-weight-bold"><i class="fas fa-heart text-danger"></i> 50%</h6>
             <small class="text-muted">8,784</small>
-         </div> -->
-        <img [src]="ed.banner" class="img-fluid" alt="..." />
+         </div>
+         <img [src]="ed.banner" class="img-fluid" alt="..." />
       </div>
-    </div>
-    <div class="col-xl-3 col-lg-3">
+   </div>
+   <div class="col-xl-3 col-lg-3">
       <div class="bg-white p-3 widget shadow rounded mb-4">
-        <img [src]="ed.poster" class="img-fluid rounded" alt="..." />
-        <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">
-          Organized By
-        </h1>
-        <p>{{ ed.eventOrganizedBy }}</p>
-        <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">
-          Starting Date
-        </h1>
-        <p>{{ ed.eventDate }}</p>
-        <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">Last Date</h1>
-        <p>{{ ed.eventDueDate }}</p>
-        <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">Entry Fee</h1>
-        <p class="mb-0">{{ ed.eventTicketPrice }}</p>
+         <img [src]="ed.poster" class="img-fluid rounded" alt="..." />
+         <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">
+            Organized By
+         </h1>
+         <p>{{ ed.eventOrganizedBy }}</p>
+         <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">
+            Starting Date
+         </h1>
+         <p>{{ ed.eventDate }}</p>
+         <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">Last Date</h1>
+         <p>{{ ed.eventDueDate }}</p>
+         <h1 class="h6 mb-0 mt-3 font-weight-bold text-gray-900">Entry Fee</h1>
+         <p class="mb-0">{{ ed.eventTicketPrice }}</p>
       </div>
-    </div>
-    <div class="col-xl-9 col-lg-9">
+   </div>
+   <div class="col-xl-9 col-lg-9">
       <div class="bg-white info-header shadow rounded mb-4">
-        <div
-          class="row d-flex align-items-center justify-content-between p-3 border-bottom"
-        >
-          <div class="col-lg-7 m-b-4">
-            <h3 class="text-gray-900 mb-0 mt-0 font-weight-bold">
-              The Fate of the Furious <small>2019</small>
-            </h3>
-            <p class="mb-0 text-gray-800">
-              <small class="text-muted"
-                ><i class="fas fa-film fa-fw fa-sm mr-1"></i>
-                {{ ed.eventCategory }}</small
-              >
-            </p>
-          </div>
-          <div class="col-lg-5 text-right">
-            <a href="#" class="d-sm-inline-block btn btn-danger shadow-sm mr-1"
-              ><i class="fas fa-share-alt"></i
-            ></a>
-            <a
-              (click)="joinEvent(ed.id)"
-              class="d-sm-inline-block btn btn-primary shadow-sm"
-            >
-              Join Event <i class="fas fa-plus fa-sm  ml-1"></i
-            ></a>
-          </div>
-        </div>
-        <div
-          class="row d-flex align-items-center justify-content-between py-3 px-4"
-        >
-          <div class="col-lg-6 m-b-4">
-            <p class="mb-0 text-gray-900">
-              <i class="fas fa-money-bill fa-sm fa-fw mr-1"></i> Entery Fees -
-              <span class="text-white rounded px-2 py-1 bg-info"
-                >&#8377;{{ ed.eventTicketPrice }}</span
-              >
-            </p>
-          </div>
-          <div class="col-lg-6 text-right">
-            <a
-              [href]="ed.eventDetails.eventSocialFacebook"
-              class="mr-2 btn btn-sm btn-primary btn-circle"
-            >
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a
-              [href]="ed.eventDetails.eventSocialInstagram"
-              class="btn btn-sm btn-danger btn-circle"
-            >
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
+
+         <div class="row d-flex align-items-center justify-content-between p-3 border-bottom">
+            <div class="col-lg-7 m-b-4">
+               <h3 class="text-gray-900 mb-0 mt-0 font-weight-bold">The Fate of the Furious <small>2019</small></h3>
+               <p class="mb-0 text-gray-800"><small class="text-muted"><i class="fas fa-film fa-fw fa-sm mr-1"></i>
+                     {{ ed.eventCategory }}</small></p>
+            </div>
+            <div class="col-lg-5 text-right">
+               <a href="#" class="d-sm-inline-block btn btn-danger  mr-1"><i class="fas fa-share-alt"></i></a>
+               <button 
+                  *ngIf="!liked"
+                  class="d-sm-inline-block btn-primary btn mx-1"
+                  (click)="like(ed.id)">
+                     like
+                  <i class="far fa-heart text-white"></i>
+               </button>
+               <button 
+                  class="d-sm-inline-block btn  mx-1 btn-danger"
+                  (click)="dislike(ed.id)"
+                     *ngIf="liked">
+                     dislike
+                  <i class="fas fa-heart text-white"></i>
+               </button>
+
+
+               <button *ngIf="joined" (click)="joinEvent(ed.id)"
+                  class="d-sm-inline-block btn btn-primary ">
+                  Join Event
+                  <i class="fas fa-plus fa-sm  ml-1"></i></button>
+               <button *ngIf="pending" [disabled]="pending"
+                  class="d-sm-inline-block btn btn-primary ">
+                  Booking is Pending
+                  <i class="fas fa-clock  ml-1"></i></button>
+               <button *ngIf="paid" class="d-sm-inline-block btn btn-success">
+                  Booked
+                  <i class="fas fa-check-circle"></i>
+               </button>
+
+            </div>
+         </div>
+         <div class="row d-flex align-items-center justify-content-between py-3 px-4">
+            <div class="col-lg-6 m-b-4">
+               <p class="mb-0 text-gray-900"><i class="fas fa-money-bill fa-sm fa-fw mr-1"></i> Entery Fees - <span
+                     class="text-white rounded px-2 py-1 bg-info">&#8377;{{ed.eventTicketPrice}}</span></p>
+            </div>
+            <div class="col-lg-6 text-right">
+               <a [href]="ed.eventDetails.eventSocialFacebook" class="mr-2 btn btn-sm btn-primary btn-circle">
+                  <i class="fab fa-facebook-f"></i>
+               </a>
+               <a [href]="ed.eventDetails.eventSocialInstagram" class="btn btn-sm btn-danger btn-circle">
+                  <i class="fab fa-instagram"></i>
+               </a>
+            </div>
+         </div>
+
       </div>
       <div class="bg-white p-3 widget shadow rounded mb-4">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a
-              class="nav-link active"
-              id="home-tab"
-              data-toggle="tab"
-              href="#description"
-              role="tab"
-              aria-controls="home"
-              aria-selected="true"
-              >Description</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              id="profile-tab"
-              data-toggle="tab"
-              href="#faq"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false"
-              >FAQ
-            </a>
-          </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-          <div
-            class="tab-pane fade show active"
-            id="description"
-            role="tabpanel"
-            aria-labelledby="description-tab"
-          >
-            <h5 class="mt-0 mb-3">{{ ed.eventName }}</h5>
-            {{ ed.eventDetails.eventDescription }}
-          </div>
+         <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#description" role="tab"
+                  aria-controls="home" aria-selected="true">Description</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" id="profile-tab" data-toggle="tab" href="#faq" role="tab" aria-controls="profile"
+                  aria-selected="false">FAQ
+               </a>
+            </li>
+         </ul>
+         <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+               <h5 class="mt-0 mb-3">{{ ed.eventName }}</h5>
+               {{ ed.eventDetails.eventDescription }}
+            </div>
 
-          <div
-            class="tab-pane fade"
-            id="faq"
-            role="tabpanel"
-            aria-labelledby="faq-tab"
-          >
-            {{ ed.eventDetails.eventFaq }}
-          </div>
-          <!-- <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+            <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+               {{ ed.eventDetails.eventFaq }}
+            </div>
+            <!-- <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                <div class="card-body p-0 reviews-card">
                   <div class="media mb-4">
                      <img class="d-flex mr-3 rounded-circle" src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fs4.png?alt=media&token=11e2d070-2169-4c42-941c-b48502a50269" alt="">
@@ -249,8 +233,8 @@
 
                </div>
             </div> -->
-        </div>
+         </div>
       </div>
-    </div>
-  </div>
+
+   </div>
 </div>

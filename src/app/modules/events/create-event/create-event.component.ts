@@ -38,15 +38,15 @@ export class CreateEventComponent implements OnInit {
       eventDueDate: ['', [Validators.required]],
       eventThumbnailUrl: ['', [Validators.required]],
       eventBannerUrl: ['', [Validators.required]],
-      eventTickets: ['', [Validators.required]],
+      eventTickets: ['', [Validators.required, Validators.maxLength(4)]],
       eventTicketPrice: ['', [Validators.required]],
       eventRedirectUrl: ['', [Validators.required]],
       eventDetails: this.fb.group({
         eventEmail: ['', [Validators.required, Validators.email]],
-        eventPhoneNumber: ['', [Validators.required]],
+        eventPhoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
         eventAddress: ['', [Validators.required]],
         eventCity: ['', [Validators.required]],
-        eventZip: ['', [Validators.required, Validators.maxLength(6)]],
+        eventZip: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
         eventSocialInstagram: ['', [Validators.required]],
         eventSocialFacebook: ['', [Validators.required]],
         eventFaq: ['', [Validators.required]]
