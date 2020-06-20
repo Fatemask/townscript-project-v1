@@ -85,7 +85,7 @@
                                 </div>
 
 
-                                <button *ngIf="isPasswordReset" [disabled]="loading" type="submit"
+                                <button *ngIf="isPasswordReset" [disabled]="email.invalid || loading" type="submit"
                                     class="btn btn-primary btn-user btn-block">
                                     Send Reset Email
                                 </button>
@@ -105,13 +105,13 @@
                                 <span class="text-center err">{{serverMessage}}</span>
                                 <hr *ngIf="!isPasswordReset" />
                                 <button type="button" *ngIf="!isPasswordReset" appGoogleSignin
-                                    class="btn btn-google btn-user btn-block">
+                                    class="btn btn-user btn-facebook btn-block">
                                     <i class="fab fa-google fa-fw"></i> Login with Google
                                 </button>
-                                <a href="#" *ngIf="!isPasswordReset" class="btn btn-facebook btn-user btn-block">
+                                <!-- <a href="#" *ngIf="!isPasswordReset" class="btn btn-facebook btn-user btn-block">
                                     <i class="fab fa-facebook-f fa-fw"></i> Login with
                                     Facebook
-                                </a>
+                                </a> -->
                             </form>
                             <hr />
                             <div class="text-center">

@@ -42,28 +42,36 @@
                      {{ ed.eventCategory }}</small></p>
             </div>
             <div class="col-lg-5 text-right">
-               <a href="#" class="d-sm-inline-block btn btn-danger shadow-sm mr-1"><i class="fas fa-share-alt"></i></a>
+               <a href="#" class="d-sm-inline-block btn btn-danger  mr-1"><i class="fas fa-share-alt"></i></a>
                <button 
                   *ngIf="!liked"
-                  class="d-sm-inline-block btn shadow-sm mx-1"
+                  class="d-sm-inline-block btn-primary btn mx-1"
                   (click)="like(ed.id)">
                      like
-                  <i class="far fa-heart text-danger"></i>
+                  <i class="far fa-heart text-white"></i>
                </button>
                <button 
-                  class="d-sm-inline-block btn shadow-sm mx-1 btn-danger"
+                  class="d-sm-inline-block btn  mx-1 btn-danger"
                   (click)="dislike(ed.id)"
                      *ngIf="liked">
                      dislike
                   <i class="fas fa-heart text-white"></i>
                </button>
-               <button *ngIf="!paid" (click)="joinEvent(ed.id)" [disabled]="joined"
-                  class="d-sm-inline-block btn btn-primary shadow-sm">
-                  {{ joined ? 'Booking is Pending' : 'Join Event' }}
+
+
+               <button *ngIf="joined" (click)="joinEvent(ed.id)"
+                  class="d-sm-inline-block btn btn-primary ">
+                  Join Event
                   <i class="fas fa-plus fa-sm  ml-1"></i></button>
-               <button *ngIf="paid" class="d-sm-inline-block btn btn-success shadow-sm">
+               <button *ngIf="pending" [disabled]="pending"
+                  class="d-sm-inline-block btn btn-primary ">
+                  Booking is Pending
+                  <i class="fas fa-clock  ml-1"></i></button>
+               <button *ngIf="paid" class="d-sm-inline-block btn btn-success">
                   Booked
+                  <i class="fas fa-check-circle"></i>
                </button>
+
             </div>
          </div>
          <div class="row d-flex align-items-center justify-content-between py-3 px-4">
