@@ -7,17 +7,15 @@ import { EventsService } from 'src/app/services/events.service';
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent implements OnInit {
-
-  events:any;
+  events: any;
   mobile = false;
   loading = true;
 
-  constructor(
-    public eventService: EventsService
-  ) { }
+  constructor(public eventService: EventsService) {}
 
   ngOnInit(): void {
-    if (window.screen.width === 375) { // 768px portrait
+    if (window.screen.width === 375) {
+      // 768px portrait
       this.mobile = true;
     }
 
@@ -26,7 +24,6 @@ export class EventsListComponent implements OnInit {
       this.loading = false;
       this.events = ev;
     })
-    
   }
 
   getCategory($event) {

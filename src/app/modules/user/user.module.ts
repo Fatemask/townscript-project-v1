@@ -1,3 +1,5 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -9,14 +11,11 @@ import { DisableControlDirective } from './disable-control.directive';
 
 @NgModule({
   declarations: [
-    LoginComponent, 
-    ProfileComponent, 
+    LoginComponent,
+    ProfileComponent,
     DisableControlDirective,
-    GoogleSigninDirective],
-  imports: [
-    SharedModule,
-    UserRoutingModule,
-    ReactiveFormsModule
-  ]
+    GoogleSigninDirective
+  ],
+  imports: [SharedModule, UserRoutingModule, ReactiveFormsModule]
 })
-export class UserModule { }
+export class UserModule {}

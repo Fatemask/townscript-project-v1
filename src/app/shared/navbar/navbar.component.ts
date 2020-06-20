@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { EventsService } from 'src/app/services/events.service';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject, combineLatest } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +12,7 @@ import { Subject, combineLatest } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
   navToggle = false;
+
   focus = false;
   results: any;
   latestKeypress: number = 0;
@@ -39,10 +40,10 @@ export class NavbarComponent implements OnInit {
   }
 
   search($event) {
-    if($event.timeStamp - this.latestKeypress > 300) {
+    if($event.timeStamp - this.latestKeypress > 1000) {
       let q = $event.target.value;
       this.startAt.next(q);
-      this.endAt.next(q + "\uf8ff");
+      this.endAt.next(q + "\uf8ff");  
     }
     this.latestKeypress = $event.timeStamp;
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventsService } from 'src/app/services/events.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-event-details',
@@ -16,9 +17,12 @@ export class EventDetailsComponent implements OnInit {
   paid= false;
   user:any;
 
+  liked: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private afAuth: AngularFireAuth,
+    private authService: AuthService,
     private eventService: EventsService
   ) { 
     this.afAuth.authState.subscribe(user => this.user = user);
@@ -48,10 +52,29 @@ export class EventDetailsComponent implements OnInit {
       this.ed.eventDetails = eventDetails[0];
       console.log(eventDetails) 
     });
+
+    this.authService.user$.subscribe((data:any) => {
+      data.likedEvents.forEach(element => {
+        if(element.eid == this.ed.id) {
+          this.liked = true;
+        } else {
+          this.liked = false;
+        }
+      })
+    })
+      
   }
 
   joinEvent(id: string) {
     this.eventService.joinEvent(id);
+  }
+
+  like(eid) {
+    this.eventService.addLike(eid);
+  }
+
+  dislike(eid) {
+    this.eventService.removeLike(eid);
   }
 
 }

@@ -1,14 +1,13 @@
-.sidebar {
-    transition: all .2s ease-in-out;
+ul#accordionSidebar.navbar-nav.sidebar.sidebar-dark.accordion.d-md-none {
+    transition: all .2s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
-form {
-    position: relative;
+.input-group > .custom-file, .input-group > .custom-select, .input-group > .form-control, .input-group > .form-control-plaintext {
+    flex: 0.5 1 auto;
 }
 
-.results {
-    position: absolute;
-    bottom: 0;
-    margin: 5px;
-    width:  auto;
+@media screen and (max-width: 425px) {
+    nav a#logo {
+        display: none !important;
+    }
 }

@@ -1,79 +1,33 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
   <!-- Sidebar -->
-  <ul class="navbar-nav sidebar sidebar-dark accordion" [ngClass]="navToggle ? 'toggled': '' " id="accordionSidebar">
+  <ul class="navbar-nav sidebar sidebar-dark accordion d-md-none" [ngClass]="navToggle ? '' : 'toggled' "
+    id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="">
       <div class="sidebar-brand-icon">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
           alt="" />
       </div>
-      <div class="sidebar-brand-text mx-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo.png?alt=media&token=7c00d25f-5476-49d6-b879-10e468cd94bf"
-          alt="" />
-      </div>
     </a>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="nav-link" [routerLink]="['']">
-        <i class="fas fa-fw fa-home"></i>
+      <a class="nav-link" routerLink="">
+        <i class="fas fa-fw fa-glass-cheers"></i>
         <span>Home</span></a>
     </li>
-    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <li class="nav-item" routerLinkActive="active" >
       <a class="nav-link" [routerLink]="['events']">
         <i class="fas fa-fw fa-glass-cheers"></i>
         <span>Events</span></a>
-    </li>
-    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="nav-link" [routerLink]="['events/create-event']">
-        <i class="fas fa-fw fa-glass-cheers"></i>
-        <span>Create Events</span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider" />
     <!-- Heading -->
-    <div class="sidebar-heading">Extra</div>
+    <!-- <div class="sidebar-heading">Extra</div> -->
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-        aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-pager"></i>
-        <span>Pages</span>
-      </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">All Pages</h6>
-          <a class="collapse-item" [routerLink]="['events']">Events</a>
-        </div>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="offers">
-        <i class="fas fa-fw fa-fire"></i>
-        <span>Offers</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-        aria-controls="collapsePages">
-        <i class="fas fa-fw fa-clone"></i>
-        <span>Extra Pages</span>
-      </a>
-      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="login">Login</a>
-          <a class="collapse-item" href="register">Register</a>
-          <a class="collapse-item" href="forgot-password">Forgot Password</a>
-          <div class="collapse-divider"></div>
-          <h6 class="collapse-header">Other Pages:</h6>
-          <a class="collapse-item" href="404">404 Page</a>
-          <a class="collapse-item" href="blank">Blank Page</a>
-        </div>
-      </div>
-    </li>
   </ul>
   <!-- End of Sidebar -->
   <!-- Content Wrapper -->
@@ -83,40 +37,41 @@
       <!-- Topbar -->
       <nav class="navbar navbar-expand navbar-dark topbar mb-4 pl-0 static-top shadow">
         <!-- Sidebar Toggle (Topbar) -->
-        <button id="sidebarToggleTop" (click)="navToggle=!navToggle" class="btn btn-link rounded-circle mr-3">
+        <a class="mx-lg-5 mx-md-3 d-flex justify-content-center align-items-center" id="logo" routerLink="">
+          <div class="">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
+              alt="logo-icon" />
+          </div>
+          <div class="ml-3">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo.png?alt=media&token=7c00d25f-5476-49d6-b879-10e468cd94bf"
+              alt="" />
+          </div>
+        </a>
+
+        <button id="sidebarToggleTop" (click)="navToggle = !navToggle"
+          class="btn btn-link d-md-none rounded-circle ml-3">
           <i class="fa fa-bars"></i>
         </button>
         <!-- Topbar Search -->
         <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
-          <div class="input-group">
+          <div class="input-group dropdown-toggle" id="search" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             <input type="text" class="form-control bg-white border-0 small"
               placeholder="Search for Movies, Events, Plays, Sports and Activities..." aria-label="Search"
-              aria-describedby="basic-addon2" (keydown)="search($event)" (focus)="focus=!focus" (blur)="onBlur()" />
+              aria-describedby="basic-addon2" (keydown)="search($event)" />
             <div class="input-group-append">
               <button class="btn bg-white" type="button">
                 <i class="fas fa-search fa-sm"></i>
               </button>
             </div>
-          </div>
-
-
-          <div *ngIf="!(results?.length < 1) && focus"
-            class="search-results dropdown-menu dropdown-menu p-3 shadow animated--grow-in"
-            [ngClass]="results ? 'show' : ''">
-            <div class="search-result" *ngFor="let result of results">
-              <a class="dropdown-item" [routerLink]="['events/details', result.id]">{{ result.eventName }}</a>
-            </div>
-          </div>
-
-          <div *ngIf="(results?.length < 1) && focus"
-            class="search-results dropdown-menu dropdown-menu p-3 shadow animated--grow-in show">
-            <div class="search-result">
-              <p>Not Found :(</p>
+            <div class="dropdown-menu p-0 shadow animated--grow-in" aria-labelledby="search">
+              <a class="dropdown-item" *ngFor="let result of results"
+                [routerLink]="['events/details', result.id]">{{ result.eventName }}</a>
             </div>
           </div>
         </form>
-
-
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
           <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -131,13 +86,16 @@
               <form class="form-inline mr-auto w-100 navbar-search">
                 <div class="input-group">
                   <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2" (keydown)="search($event)"
-                    (focus)="focus=!focus" (blur)="onBlur()" />
+                    aria-label="Search" aria-describedby="basic-addon2" (keydown)="search($event)" />
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
                       <i class="fas fa-search fa-sm"></i>
                     </button>
                   </div>
+                </div>
+                <div class="dropdown-menu p-0 shadow animated--grow-in show">
+                  <a class="dropdown-item" *ngFor="let result of results"
+                    [routerLink]="['events/details', result.id]">{{ result.eventName }}</a>
                 </div>
               </form>
             </div>
@@ -156,8 +114,10 @@
                 class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.displayName }}</span>
               <span *ngIf="!user.displayName"
                 class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.email }}</span>
-              <img class="img-profile rounded-circle"
-                [src]="user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fs4.png?alt=media&token=11e2d070-2169-4c42-941c-b48502a50269'" />
+              <img class="img-profile rounded-circle" [src]="
+                  user.photoURL ||
+                  'https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fs4.png?alt=media&token=11e2d070-2169-4c42-941c-b48502a50269'
+                " />
             </a>
 
             <!-- Dropdown - User Information -->
@@ -173,6 +133,7 @@
               </a>
             </div>
           </li>
+
         </ul>
       </nav>
       <!-- End of Topbar -->
