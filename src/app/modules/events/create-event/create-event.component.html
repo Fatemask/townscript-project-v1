@@ -1,18 +1,16 @@
-<div class="text-center" style="height: 100%" *ngIf="loading; else content">
-  <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
+<loading-screen [message]="msg" *ngIf="loading; else content"></loading-screen>
 <ng-template #content>
   <div *ngIf="!isCreator; else notVerified">
     <div class="apply-creator">
       <h3>Apply to become Event Organizer</h3>
-      <button class="btn btn-primary" (click)='eventsService.applyCreator()'>APPLY</button>
+      <button class="btn btn-primary" (click)="eventsService.applyCreator()">
+        APPLY
+      </button>
     </div>
   </div>
 
   <ng-template #notVerified>
-  <div *ngIf="!creatorVerified && isCreator; else createEvent">
+    <div *ngIf="!creatorVerified && isCreator; else createEvent">
       <div class="apply-creator">
         <h3>Your application is not verified yet, come back later</h3>
       </div>
@@ -125,77 +123,15 @@
                   This field is required.
                 </span>
               </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <!-- <div class="form-group">
-                                <label for="exampleFormControlFile1">Select Thumbnail</label>
-                                <input type="file" accept="image/*" class="form-control-file" id="exampleFormControlFile1"
-                                formControlName="eventThumbnail"
-                                (change)="getThumb($event)"
-                                />
-                            </div> -->
-                  <div class="form-group">
-                    <label for="Thumb">Thumb Image Url</label>
-                    <input
-                      id="Thumb"
-                      type="url"
-                      class="form-control"
-                      placeholder="OEvent Thumbnail Image Url"
-                      formControlName="eventThumbnailUrl"
-                    />
-                    <span
-                      class="text-danger"
-                      *ngIf="
-                        fc.eventThumbnailUrl.invalid &&
-                        (fc.eventThumbnailUrl.dirty ||
-                          fc.eventThumbnailUrl.touched)
-                      "
-                    >
-                      This field is required.
-                    </span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <!-- <div class="form-group">
-                                <label for="exampleFormControlFile1">Select Banner</label>
-                                <input type="file" accept="image/*" class="form-control-file" id="exampleFormControlFile1"
-                                formControlName="eventBanner"
-                                (change)="getBanner($event)" />
-                            </div> -->
-                  <div class="form-group">
-                    <label for="Banner">Banner Image Url</label>
-                    <input
-                      id="Banner"
-                      type="url"
-                      class="form-control"
-                      placeholder="Event Banner Image Url"
-                      formControlName="eventBannerUrl"
-                    />
-                    <span
-                      class="text-danger"
-                      *ngIf="
-                        fc.eventBannerUrl.invalid &&
-                        (fc.eventBannerUrl.dirty || fc.eventBannerUrl.touched)
-                      "
-                    >
-                      This field is required.
-                    </span>
-                  </div>
-                </div>
-              </div>
-
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInput7">Event Starting date</label>
-                    <input
-                      id="exampleInput7"
-                      type="date"
-                      class="form-control"
-                      placeholder="Event startng date"
+                    <ngb-datepicker
+                      #dp
                       formControlName="eventDate"
-                    />
+                      [minDate]="today"
+                    ></ngb-datepicker>
                     <span
                       class="text-danger"
                       *ngIf="
@@ -205,12 +141,26 @@
                     >
                       This field is required.
                     </span>
+                    <!--<input
+                      id="exampleInput7"
+                      type="date"
+                      class="form-control"
+                      placeholder="Event startng date"
+                      formControlName="eventDate"
+                    />-->
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInput7">Event's Last Date</label>
+                    <label for="exampleInput7">Event's Time</label>
                     <input
+                      type="time"
+                      id="exampleInput7"
+                      class="form-control"
+                      placeholder="Time"
+                      formControlName="eventTiming"
+                    />
+                    <!-- <input
                       id="exampleInput7"
                       type="date"
                       class="form-control"
@@ -225,7 +175,7 @@
                       "
                     >
                       This field is required.
-                    </span>
+                    </span> -->
                   </div>
                 </div>
               </div>
@@ -282,6 +232,7 @@
                   class="form-control"
                   placeholder="Redirect URL"
                   formControlName="eventRedirectUrl"
+                  [pattern]="reg"
                 />
                 <span
                   class="text-danger"
@@ -290,7 +241,7 @@
                     (fc.eventRedirectUrl.dirty || fc.eventRedirectUrl.touched)
                   "
                 >
-                  This field is required.
+                Enter a valid link.
                 </span>
               </div>
             </div>
@@ -330,6 +281,7 @@
                       class="form-control"
                       placeholder="Phone Number to Contact"
                       formControlName="eventPhoneNumber"
+                      [pattern]="mobNumberPattern"
                     />
                     <span
                       class="text-danger"
@@ -339,7 +291,7 @@
                           dfc.eventPhoneNumber.touched)
                       "
                     >
-                      This field is required.
+                      Enter valid number.
                     </span>
                   </div>
                 </div>
@@ -421,6 +373,7 @@
                       class="form-control"
                       placeholder="Instgram profile url"
                       formControlName="eventSocialInstagram"
+                      [pattern]="reg"
                     />
                     <span
                       class="text-danger"
@@ -430,7 +383,7 @@
                           dfc.eventSocialInstagram.touched)
                       "
                     >
-                      This field is required.
+                    Enter a valid link.
                     </span>
                   </div>
                 </div>
@@ -443,6 +396,7 @@
                       class="form-control"
                       placeholder="Facebook Pag url"
                       formControlName="eventSocialFacebook"
+                      [pattern]="reg"
                     />
                     <span
                       class="text-danger"
@@ -452,7 +406,7 @@
                           dfc.eventSocialFacebook.touched)
                       "
                     >
-                      This field is required.
+                      Enter a valid link.
                     </span>
                   </div>
                 </div>

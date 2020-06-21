@@ -5,12 +5,14 @@ import { EventCardComponent } from './event-card/event-card.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 
 const components = [
   EventCardComponent,
   NavbarComponent,
   FooterComponent,
-  UploaderComponent
+  UploaderComponent,
+  LoadingScreenComponent
 ];
 const modules = [CommonModule, RouterModule];
 
@@ -19,4 +21,4 @@ const modules = [CommonModule, RouterModule];
   imports: [...modules],
   exports: [...components, ...modules]
 })
-export class SharedModule {}
+export class SharedModule { }

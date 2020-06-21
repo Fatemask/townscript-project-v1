@@ -1,26 +1,39 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
   <!-- Sidebar -->
-  <ul class="navbar-nav sidebar sidebar-dark accordion d-md-none" [ngClass]="navToggle ? '' : 'toggled' "
-    id="accordionSidebar">
+  <ul
+    class="navbar-nav sidebar sidebar-dark accordion d-md-none"
+    [ngClass]="navToggle ? '' : 'toggled'"
+    id="accordionSidebar"
+  >
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="">
+    <a
+      class="sidebar-brand d-flex align-items-center justify-content-center"
+      routerLink=""
+    >
       <div class="sidebar-brand-icon">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
-          alt="" />
+          alt=""
+        />
       </div>
     </a>
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <li
+      class="nav-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <a class="nav-link" routerLink="">
         <i class="fas fa-fw fa-glass-cheers"></i>
-        <span>Home</span></a>
+        <span>Home</span></a
+      >
     </li>
     <li class="nav-item" routerLinkActive="active">
       <a class="nav-link" [routerLink]="['events']">
         <i class="fas fa-fw fa-glass-cheers"></i>
-        <span>Events</span></a>
+        <span>Events</span></a
+      >
     </li>
 
     <!-- Divider -->
@@ -35,31 +48,53 @@
     <!-- Main Content -->
     <div id="content">
       <!-- Topbar -->
-      <nav class="navbar navbar-expand navbar-dark topbar mb-4 pl-0 static-top shadow">
+      <nav
+        class="navbar navbar-expand navbar-dark topbar mb-4 pl-0 static-top shadow"
+      >
         <!-- Sidebar Toggle (Topbar) -->
-        <a class="mx-lg-5 mx-md-3 d-flex justify-content-center align-items-center" id="logo" routerLink="">
+        <a
+          class="mx-lg-5 mx-md-3 d-flex justify-content-center align-items-center"
+          id="logo"
+          routerLink=""
+        >
           <div class="">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
-              alt="logo-icon" />
+              alt="logo-icon"
+            />
           </div>
           <div class="ml-3">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo.png?alt=media&token=7c00d25f-5476-49d6-b879-10e468cd94bf"
-              alt="" />
+              alt=""
+            />
           </div>
         </a>
 
-        <button id="sidebarToggleTop" (click)="navToggle = !navToggle"
-          class="btn btn-link d-md-none rounded-circle ml-3">
+        <button
+          id="sidebarToggleTop"
+          (click)="navToggle = !navToggle"
+          class="btn btn-link d-md-none rounded-circle ml-3"
+        >
           <i class="fa fa-bars"></i>
         </button>
         <!-- Topbar Search -->
-        <div class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
-          <div *ngIf="router.url != '/events/search'" class="input-group" (click)="router.navigate(['events/search'])">
-            <input type="text" class="form-control bg-white border-0 small"
-              placeholder="Search for Movies, Events, Plays, Sports and Activities..." aria-label="Search"
-              aria-describedby="basic-addon2" disabled />
+        <div
+          class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search"
+        >
+          <div
+            *ngIf="router.url != '/events/search'"
+            class="input-group"
+            (click)="router.navigate(['events/search'])"
+          >
+            <input
+              type="text"
+              class="form-control bg-white border-0 small"
+              placeholder="Search for Movies, Events, Plays, Sports and Activities..."
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+              disabled
+            />
             <div class="input-group-append">
               <button class="btn bg-white" type="button">
                 <i class="fas fa-search fa-sm"></i>
@@ -71,17 +106,32 @@
         <ul class="navbar-nav ml-auto">
           <!-- Nav Item - Search Dropdown (Visible Only XS) -->
           <li class="nav-item dropdown no-arrow d-sm-none">
-            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="searchDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               <i class="fas fa-search fa-fw"></i>
             </a>
             <!-- Dropdown - Messages -->
-            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-              aria-labelledby="searchDropdown">
+            <div
+              class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+              aria-labelledby="searchDropdown"
+            >
               <form class="form-inline mr-auto w-100 navbar-search">
                 <div class="input-group" routerLink="events/search">
-                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2" disabled />
+                  <input
+                    type="text"
+                    class="form-control bg-light border-0 small"
+                    placeholder="Search for..."
+                    aria-label="Search"
+                    aria-describedby="basic-addon2"
+                    disabled
+                  />
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
                       <i class="fas fa-search fa-sm"></i>
@@ -92,46 +142,75 @@
             </div>
           </li>
           <li class="nav-item no-arrow mx-1">
-            <a class="nav-link" routerLink="user/login" *ngIf="!(afAuth.authState | async)">
+            <a
+              class="nav-link"
+              routerLink="user/login"
+              *ngIf="!(afAuth.authState | async)"
+            >
               <!-- Counter - Alerts -->
               <span class="btn btn-primary">Login</span>
             </a>
           </li>
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" *ngIf="afAuth.authState | async as user">
-              <span *ngIf="user.displayName"
-                class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.displayName }}</span>
-              <span *ngIf="!user.displayName"
-                class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.email }}</span>
-              <img class="img-profile rounded-circle" [src]="
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="userDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              *ngIf="afAuth.authState | async as user"
+            >
+              <span
+                *ngIf="user.displayName"
+                class="mr-2 d-none d-lg-inline text-gray-600 small"
+                >{{ user.displayName }}</span
+              >
+              <span
+                *ngIf="!user.displayName"
+                class="mr-2 d-none d-lg-inline text-gray-600 small"
+                >{{ user.email }}</span
+              >
+              <img
+                class="img-profile rounded-circle"
+                [src]="
                   user.photoURL ||
                   'https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Fs4.png?alt=media&token=11e2d070-2169-4c42-941c-b48502a50269'
-                " />
+                "
+              />
             </a>
 
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+            <div
+              class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+              aria-labelledby="userDropdown"
+            >
               <a class="dropdown-item" routerLink="user/profile">
-                <i class="fas fa-user-circle fa-sm fa-fw mr-2 text-gray-400"></i>
+                <i
+                  class="fas fa-user-circle fa-sm fa-fw mr-2 text-gray-400"
+                ></i>
                 Profile
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="afAuth.signOut()" data-toggle="modal" data-target="#logoutModal">
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+              <a
+                class="dropdown-item"
+                data-toggle="modal"
+                data-target="#logoutModal"
+              >
+                <i
+                  class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                ></i>
                 Logout
               </a>
             </div>
           </li>
-
         </ul>
       </nav>
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
-      <div class="container-fluid">
-        <ng-content></ng-content>
-      </div>
+      <ng-content></ng-content>
     </div>
   </div>
 </div>

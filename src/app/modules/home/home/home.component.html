@@ -1,12 +1,48 @@
-<div class="text-center" style="height: 100%" *ngIf="loading">
-  <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xl-3 col-md-6 mb-4" *ngFor="let event of events">
-        <app-event-card  [event]="event"></app-event-card>
+<loading-screen message="Loading" *ngIf="loading"></loading-screen>
+<owl-carousel-o [options]="customOptionsFeatured" *ngIf="!loading">
+  <ng-template carouselSlide *ngFor="let event of featuredEvents">
+    <div [routerLink]="['events/details', event.id]">
+      <img class="featured-card-img" [src]="event.banner" />
     </div>
-  </div>
+  </ng-template>
+</owl-carousel-o>
+<div *ngFor="let category of categoriesCarousal">
+  <h3>{{ category.category }}</h3>
+  <owl-carousel-o [options]="customOptions" *ngIf="!loading">
+    <ng-template
+      carouselSlide
+      *ngFor="let event of category.data"
+      [width]="500"
+    >
+      <div class="card-wrapper">
+        <div class="card m-card shadow border-0">
+          <a [routerLink]="['events/details', event.id]">
+            <div class="m-card-cover">
+              <!-- <div
+                class="position-absolute bg-white shadow-sm rounded text-center p-2 m-2 love-box"
+              >
+                <h6 class="text-gray-900 mb-0 font-weight-bold">
+                  <i class="fas fa-heart text-danger"></i> 99%
+                </h6>
+                <small class="text-muted">345</small>
+              </div> -->
+              <img [src]="event.poster" class="card-img-top" alt="..." />
+            </div>
+            <div class="card-body p-3">
+              <h5 class="card-title text-gray-900 mb-1">
+                {{ event.eventName }}
+              </h5>
+              <p class="card-text">
+                <small class="text-muted">{{ event.language }}</small>
+                <small class="text-danger"
+                  ><i class="fas fa-calendar-alt fa-sm text-gray-400"></i
+                  >{{ event.dateAndTime }}</small
+                >
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
 </div>
