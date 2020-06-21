@@ -10,14 +10,20 @@ export class EventsListComponent implements OnInit {
   events: any;
   mobile = false;
   loading = true;
+  displayAll = true;
+  filterEvent: any = [];
 
   constructor(public eventService: EventsService) {}
 
+  mobileSize = [425, 375, 320]
   ngOnInit(): void {
-    if (window.screen.width === 375) {
-      // 768px portrait
-      this.mobile = true;
-    }
+    this.mobileSize.forEach(width => {
+      if (window.screen.width === width) {
+        // 768px portrait
+        this.mobile = true;
+      }
+    })
+    
 
     this.eventService.getEventCategories();
     this.eventService.getAllEvents().subscribe(ev => {
@@ -27,14 +33,20 @@ export class EventsListComponent implements OnInit {
   }
 
   getCategory($event) {
-    this.loading = true;
+    this.filterEvent = [];
+    this.displayAll = false;
     if ($event.target.checked) {
-      this.eventService.getCategoryViseEvents($event.target.id).subscribe(events => {
-        this.events = events;
-        this.loading = false;
-      })
-    } else {
-      this.loading = false;
+     this.events.filter(data => {
+       if(data.eventCategory == $event.target.id) {
+        this.filterEvent.push(data);
+       }
+     })
     }
   }
+
+  seeAll() {
+    this.filterEvent = [];
+    this.displayAll = true;
+  }
+
 }

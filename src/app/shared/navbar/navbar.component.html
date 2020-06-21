@@ -17,7 +17,7 @@
         <i class="fas fa-fw fa-glass-cheers"></i>
         <span>Home</span></a>
     </li>
-    <li class="nav-item" routerLinkActive="active" >
+    <li class="nav-item" routerLinkActive="active">
       <a class="nav-link" [routerLink]="['events']">
         <i class="fas fa-fw fa-glass-cheers"></i>
         <span>Events</span></a>
@@ -55,23 +55,18 @@
           <i class="fa fa-bars"></i>
         </button>
         <!-- Topbar Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
-          <div class="input-group dropdown-toggle" id="search" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+        <div class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+          <div *ngIf="router.url != '/events/search'" class="input-group" (click)="router.navigate(['events/search'])">
             <input type="text" class="form-control bg-white border-0 small"
               placeholder="Search for Movies, Events, Plays, Sports and Activities..." aria-label="Search"
-              aria-describedby="basic-addon2" (keydown)="search($event)" />
+              aria-describedby="basic-addon2" disabled />
             <div class="input-group-append">
               <button class="btn bg-white" type="button">
                 <i class="fas fa-search fa-sm"></i>
               </button>
             </div>
-            <div class="dropdown-menu p-0 shadow animated--grow-in" aria-labelledby="search">
-              <a class="dropdown-item" *ngFor="let result of results"
-                [routerLink]="['events/details', result.id]">{{ result.eventName }}</a>
-            </div>
           </div>
-        </form>
+        </div>
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
           <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -84,18 +79,14 @@
             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
               aria-labelledby="searchDropdown">
               <form class="form-inline mr-auto w-100 navbar-search">
-                <div class="input-group">
+                <div class="input-group" routerLink="events/search">
                   <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2" (keydown)="search($event)" />
+                    aria-label="Search" aria-describedby="basic-addon2" disabled />
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
                       <i class="fas fa-search fa-sm"></i>
                     </button>
                   </div>
-                </div>
-                <div class="dropdown-menu p-0 shadow animated--grow-in show">
-                  <a class="dropdown-item" *ngFor="let result of results"
-                    [routerLink]="['events/details', result.id]">{{ result.eventName }}</a>
                 </div>
               </form>
             </div>

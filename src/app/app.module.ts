@@ -24,9 +24,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AngularFirestoreModule,
     SharedModule,
     CoreModule,
-    EventsRoutingModule,
-    CommonModule,
-    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

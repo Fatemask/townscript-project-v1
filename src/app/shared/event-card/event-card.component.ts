@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
 import { EventsService } from 'src/app/services/events.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-card',
@@ -13,6 +14,7 @@ export class EventCardComponent implements OnInit {
   count: number = 0;
   constructor(
     private authService: AuthService,
+    private router: Router,
     private eventService: EventsService) { }
 
   @Input() event:any;
@@ -24,6 +26,10 @@ export class EventCardComponent implements OnInit {
         }
       });
     })
+  }
+
+  redirect() {
+    this.router.navigate(['events/details', this.event.id])
   }
 
 }
