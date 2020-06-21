@@ -2,7 +2,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 
@@ -116,7 +116,10 @@ export class EventsService {
   getAllEvents() {
     return this.db
       .collection('events', ref => ref.where('is_verified', '==', true))
-      .valueChanges({ idField: 'id' });
+      .valueChanges({ idField: 'id' }).pipe(tap((data:any) => {
+          data.forEach(element => element.eventName = element.eventName.charAt(0).toUpperCase() + element.eventName.slice(1))
+      })
+    )
   }
 
   /**
@@ -179,7 +182,7 @@ export class EventsService {
   }
 
   getSearchedEvent(start, end) {
-    return this.db.collection('events', ref => ref.limit(4).orderBy('eventName').startAt(start).endAt(end)).valueChanges({idField: 'id'});
+    return this.db.collection('events', ref => ref.orderBy('eventName').startAt(start).endAt(end)).valueChanges({idField: 'id'});
   }
 
   async applyCreator() {

@@ -97,6 +97,7 @@ export class CreateEventComponent implements OnInit {
     this.loading = true;
     const data = this.createEventForm.value;
     data.eventCity = data.eventDetails.eventCity;
+    data.eventName = data.eventName.toLowerCase();
     data.eventDetails.eventDescription = data.eventDescription;
     delete data.eventDetails.eventCity;
     delete data.eventDescription;

@@ -7,6 +7,7 @@ import {
   AngularFireAuthGuard,
   redirectUnauthorizedTo
 } from '@angular/fire/auth-guard';
+import { SearchComponent } from './search/search.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'details/:id',
     component: EventDetailsComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   }
 ];
 
