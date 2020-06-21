@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { ErrPageComponent } from './err-page/err-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [AppComponent, ErrPageComponent],
   imports: [
@@ -24,8 +24,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AngularFirestoreModule,
     SharedModule,
     CoreModule,
+    EventsRoutingModule,
+    CommonModule,
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

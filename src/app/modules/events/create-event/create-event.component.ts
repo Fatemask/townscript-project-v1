@@ -1,8 +1,10 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { EventsService } from 'src/app/services/events.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgModel } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbDateStruct, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-create-event',
@@ -20,11 +22,18 @@ export class CreateEventComponent implements OnInit {
   data;
   id;
   creatorVerified;
+  msg = 'Loading'
+  today;
+  meridian = true;
+  mobNumberPattern = "^((\\+91-?)|0)?[0-9]{10}$";
+  reg = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   constructor(
     public eventsService: EventsService,
     private fb: FormBuilder,
     private afAuth: AngularFireAuth,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private router: Router,
+    public calender: NgbCalendar
   ) {
     this.eventsService.getEventCategories();
   }
@@ -35,9 +44,7 @@ export class CreateEventComponent implements OnInit {
       eventCategory: ['', [Validators.required]],
       eventDescription: ['', [Validators.required]],
       eventDate: ['', [Validators.required]],
-      eventDueDate: ['', [Validators.required]],
-      eventThumbnailUrl: ['', [Validators.required]],
-      eventBannerUrl: ['', [Validators.required]],
+      eventTiming: ['', [Validators.required]],
       eventTickets: ['', [Validators.required, Validators.maxLength(4)]],
       eventTicketPrice: ['', [Validators.required]],
       eventRedirectUrl: ['', [Validators.required]],
@@ -55,7 +62,6 @@ export class CreateEventComponent implements OnInit {
     this.eventsService.userData();
     setTimeout(() => {
       this.data = this.eventsService.data;
-      console.log(this.data);
       if (this.data.isCreator == true) {
         this.isCreator = true;
       }
@@ -63,7 +69,7 @@ export class CreateEventComponent implements OnInit {
         this.creatorVerified = true;
       }
       this.loading = false;
-    }, 1000);
+    }, 2000);
     /* this.db
     .collection('users')
     .doc(this.id)
@@ -73,8 +79,13 @@ export class CreateEventComponent implements OnInit {
     if (this.data.isCreator == true) {
       this.isCreator = true;
     } */
+
+    this.today = this.calender.getToday()
   }
 
+  toggleMeridian() {
+    this.meridian = !this.meridian
+  }
   // form control of event formGroup
   get fc(): any {
     return this.createEventForm['controls'];
@@ -95,6 +106,7 @@ export class CreateEventComponent implements OnInit {
 
   async onSubmit() {
     this.loading = true;
+    this.msg = 'Creating Event...'
     const data = this.createEventForm.value;
     data.eventCity = data.eventDetails.eventCity;
     data.eventName = data.eventName.toLowerCase();
@@ -106,8 +118,9 @@ export class CreateEventComponent implements OnInit {
       await this.eventsService.uploadFile(this.banner, 'banner');
       await this.eventsService.uploadFile(this.poster, 'poster');
     }
-    console.log(data);
-    this.loading = false;
+    this.msg = 'Event Created'
+    setTimeout(() =>
+      this.router.navigateByUrl(''), 800)
     /* this.createEventForm.reset(); */
   }
 }

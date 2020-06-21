@@ -6,6 +6,7 @@ import { EventDetailsComponent } from './event-details/event-details.component';
 import { CreateEventComponent } from './create-event/create-event.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,8 @@ import { SearchComponent } from './search/search.component';
     FormsModule,
     EventsRoutingModule,
     ReactiveFormsModule,
+    NgbModule,
+    FormsModule
   ]
 })
 export class EventsModule { }

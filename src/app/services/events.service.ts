@@ -43,7 +43,7 @@ export class EventsService {
           ...data,
           uid: user.uid,
           is_verified: false,
-          is_sponserd: false,
+          featured: false,
           poster: 'temp',
           banner: 'temp'
         });
@@ -194,7 +194,7 @@ export class EventsService {
         creatorVerified: false
       })
       .then(
-        () => console.log('oid added to user col'),
+        () => location.reload(),
         e => console.log('Error in user', e)
       );
   }
