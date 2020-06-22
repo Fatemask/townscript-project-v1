@@ -7,17 +7,6 @@
     id="accordionSidebar"
   >
     <!-- Sidebar - Brand -->
-    <a
-      class="sidebar-brand d-flex align-items-center justify-content-center"
-      routerLink=""
-    >
-      <div class="sidebar-brand-icon">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
-          alt=""
-        />
-      </div>
-    </a>
     <!-- Nav Item - Dashboard -->
     <li
       class="nav-item"
@@ -39,7 +28,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider" />
     <!-- Heading -->
-    <!-- <div class="sidebar-heading">Extra</div> -->
     <!-- Nav Item - Pages Collapse Menu -->
   </ul>
   <!-- End of Sidebar -->
@@ -70,14 +58,23 @@
             />
           </div>
         </a>
-
         <button
           id="sidebarToggleTop"
           (click)="navToggle = !navToggle"
           class="btn btn-link d-md-none rounded-circle ml-3"
         >
-          <i class="fa fa-bars"></i>
+        <i class="fa fa-bars"></i>
         </button>
+        <a
+      class="nav-link" routerLink=""
+      >
+      <div class="sidebar-brand-icon">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
+          alt=""
+        />
+      </div>
+    </a>
         <!-- Topbar Search -->
         <div
           class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search"
@@ -345,6 +342,29 @@
                 Profile
               </a>
               <div class="dropdown-divider"></div>
+              <a
+                 class="dropdown-item"
+                 data-toggle="modal"
+                 data-target="#createeventModal"
+              >
+                <i class="fas fa-list-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Create Event
+              </a>
+              <a
+                 class="dropdown-item"
+                 data-toggle="modal"
+                 data-target="#watchlistModal"
+              >
+                <i class="fas fa-heart fa-sm fa-fw mr-2 text-gray-400"></i>
+               Watchlist
+              </a>
+              <a class="dropdown-item"
+                 data-toggle="modal"
+                 data-target="#createeventModal"
+              >
+                <i class="fas fa-list-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Your Lists
+              </a>
               <a
                 class="dropdown-item"
                 data-toggle="modal"
