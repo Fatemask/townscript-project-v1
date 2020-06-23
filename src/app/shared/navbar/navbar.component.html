@@ -1,5 +1,6 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
+
     <!-- Sidebar -->
     <ul class="navbar-nav sidebar sidebar-dark accordion d-md-none" [ngClass]="navToggle ? '' : 'toggled' "
         id="accordionSidebar">
@@ -9,6 +10,7 @@
                 <img src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
                     alt="" />
             </div>
+
         </a>
         <!-- Nav Item - Dashboard -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -21,6 +23,7 @@
                 <i class="fas fa-fw fa-glass-cheers"></i>
                 <span>Events</span></a>
         </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider" />
@@ -71,6 +74,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -126,6 +130,7 @@
                   " />
                         </a>
 
+
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
@@ -148,6 +153,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <ng-content></ng-content>
+
             </div>
         </div>
     </div>
