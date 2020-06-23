@@ -66,7 +66,8 @@ export class HomeComponent {
       940: {
         items: 4
       }
-    }
+    },
+    nav: true
   };
   customOptionsFeatured: OwlOptions = {
     center: true,

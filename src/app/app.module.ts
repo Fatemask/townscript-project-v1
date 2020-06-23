@@ -24,7 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFirestoreModule,
     SharedModule,
     CoreModule,
-    EventsRoutingModule,
     CommonModule,
     NgbModule,
     BrowserAnimationsModule

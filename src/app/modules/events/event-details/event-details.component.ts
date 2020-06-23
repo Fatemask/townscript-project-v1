@@ -15,7 +15,7 @@ export class EventDetailsComponent implements OnInit {
   loading: boolean = true;
   joined: boolean = true;
   pending: boolean = false;
-  paid = false;
+  visited = false;
   user:any;
 
   liked: boolean = false;
@@ -36,17 +36,8 @@ export class EventDetailsComponent implements OnInit {
       data.joinedUsers.forEach(element => {
         if(element.uid == this.user.uid){
           this.joined = false;
-          this.pending = true;
-        }
-        if((element.isPaid == true) && (element.uid == this.user.uid)){
-          this.joined = false;
-          this.pending = false;
-          this.paid = true;
-        }
-        if((element.isPaid == false) && (element.uid == this.user.uid)) {
-          this.joined = false;
-          this.pending = true;
-          this.paid = false;
+          this.visited = true;
+          // this.pending = true;
         }
       })
     }, () => { console.log(this.loading);this.loading = false })
@@ -76,7 +67,7 @@ export class EventDetailsComponent implements OnInit {
   joinEvent(id: string) {
     this.eventService.joinEvent(id);
     this.joined = false;
-    this.pending = true;
+    this.visited = true;
   }
 
   like(eid) {
