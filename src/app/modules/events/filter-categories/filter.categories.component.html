@@ -1,0 +1,42 @@
+<div class="container">
+
+   <!-- <h3 class="mr-5 d-inline">Filter By</h3>
+   <div class="dropdown d-inline mx-2">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="fas fa-calendar-week"></i> &nbsp; &nbsp; &nbsp; Date
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         <a class="dropdown-item" 
+         #messageEl 
+         *ngFor="let message of messages" 
+         [attr.data-message-id]="message.text"
+         (click)="logMessageId(messageEl)">
+         {{ message.text }}
+      </a>
+      </div>
+   </div>
+
+   <div class="dropdown d-inline mx-2">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="fas fa-calendar-week"></i> &nbsp; &nbsp; &nbsp; Price
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         <a class="dropdown-item" href="#">Action</a>
+         <a class="dropdown-item" href="#">Another action</a>
+         <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+   </div> -->
+   <h3 class="mr-5 d-inline">{{ name }} Category</h3>
+   <hr />
+
+   <div class="row">
+      <div class="col-xl-3 col-md-4 mb-4" *ngFor="let event of events">
+         <app-event-card [event]="event"></app-event-card>
+      </div>
+   </div>
+
+   
+
+</div>

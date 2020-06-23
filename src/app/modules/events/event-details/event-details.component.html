@@ -81,21 +81,13 @@
               (click)="joinEvent(ed.id)"
               class="d-sm-inline-block btn btn-primary "
             >
-              Join Event
+              Go to Website
               <i class="fas fa-plus fa-sm  ml-1"></i>
             </button>
-            <button
-              *ngIf="pending"
-              [disabled]="pending"
-              class="d-sm-inline-block btn btn-primary "
-            >
-              Booking is Pending
-              <i class="fas fa-clock  ml-1"></i>
-            </button>
-            <button *ngIf="paid" class="d-sm-inline-block btn btn-success">
-              Booked
-              <i class="fas fa-check-circle"></i>
-            </button>
+
+            <a [href]="ed.eventRedirectUrl" target="_blank" *ngIf="visited" class="d-sm-inline-block btn btn-success">
+              Go to Website
+            </a>
           </div>
         </div>
         <div
