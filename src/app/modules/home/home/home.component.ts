@@ -44,7 +44,6 @@ export class HomeComponent {
         }
         this.tempEvents = []
       }
-      console.log(this.featuredEvents)
       this.loading = false;
     });
   }

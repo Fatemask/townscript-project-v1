@@ -16,7 +16,7 @@ export class EventDetailsComponent implements OnInit {
   joined: boolean = true;
   pending: boolean = false;
   visited = false;
-  user:any;
+  user: any;
 
   liked: boolean = false;
 
@@ -25,43 +25,41 @@ export class EventDetailsComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private authService: AuthService,
     private eventService: EventsService
-  ) { 
+  ) {
     this.afAuth.authState.subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.eventService.getAttendees(id).subscribe((data:any) => {
-      console.log(this.loading)
+    this.eventService.getAttendees(id).subscribe((data: any) => {
       data.joinedUsers.forEach(element => {
-        if(element.uid == this.user.uid){
+        if (element.uid == this.user.uid) {
           this.joined = false;
           this.visited = true;
           // this.pending = true;
         }
       })
-    }, () => { console.log(this.loading);this.loading = false })
+    }, () => { this.loading = false })
 
     this.eventService.getEventById(id).subscribe(et => {
       this.ed = et;
       this.ed.id = id;
       this.loading = false;
     });
-    this.eventService.getEventDetails(id).subscribe(eventDetails => { 
+    this.eventService.getEventDetails(id).subscribe(eventDetails => {
       this.ed.eventDetails = eventDetails[0];
-      console.log(eventDetails) 
     });
 
-    this.authService.user$.subscribe((data:any) => {
+    this.authService.user$.subscribe((data: any) => {
       data.likedEvents.forEach(element => {
-        if(element.eid == this.ed.id) {
+        if (element.eid == this.ed.id) {
           this.liked = true;
         } else {
           this.liked = false;
         }
       })
     })
-      
+
   }
 
   joinEvent(id: string) {

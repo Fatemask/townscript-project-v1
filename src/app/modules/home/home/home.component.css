@@ -3,6 +3,10 @@
   border-radius: 5px;
 }
 
+.category-name {
+  margin-left: 10px;
+}
+
 @media (max-width: 576px) {
   .card-wrapper {
     max-width: 170px;

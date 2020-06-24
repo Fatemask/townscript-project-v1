@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  constructor(public afAuth: AngularFireAuth) {}
+  constructor(public afAuth: AngularFireAuth, public router: Router) { }
 }

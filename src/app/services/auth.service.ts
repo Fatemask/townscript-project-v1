@@ -11,12 +11,12 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
     private router: Router
-  ) {}
+  ) { }
 
   logOut() {
     this.afAuth.signOut();
     localStorage.removeItem('user');
     localStorage.removeItem('uid');
-    this.router.navigate(['']);
+    this.router.navigate(['user/login']);
   }
 }
