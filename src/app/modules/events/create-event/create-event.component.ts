@@ -54,9 +54,9 @@ export class CreateEventComponent implements OnInit {
         eventAddress: ['', [Validators.required]],
         eventCity: ['', [Validators.required]],
         eventZip: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
-        eventSocialInstagram: ['', [Validators.required]],
-        eventSocialFacebook: ['', [Validators.required]],
-        eventFaq: ['', [Validators.required]]
+        eventSocialInstagram: ['', []],
+        eventSocialFacebook: ['', []],
+        eventFaq: ['', []]
       })
     });
     this.eventsService.userData();
