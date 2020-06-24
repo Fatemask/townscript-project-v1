@@ -64,7 +64,7 @@
               <i class="far fa-heart text-white"></i>
             </button>
 
-            <button *ngIf="!(afAuth.authState | async ) && !liked" class="d-sm-inline-block btn-primary btn mx-1" (click)="like(ed.id)">
+            <button *ngIf="(afAuth.authState | async) && !liked" class="d-sm-inline-block btn-primary btn mx-1" (click)="like(ed.id)">
               like
               <i class="far fa-heart text-white"></i>
             </button>
