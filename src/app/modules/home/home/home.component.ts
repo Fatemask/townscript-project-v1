@@ -67,8 +67,8 @@ export class HomeComponent {
         items: 4
       }
     },
-    nav: true
   };
+  
   customOptionsFeatured: OwlOptions = {
     center: true,
     loop: true,

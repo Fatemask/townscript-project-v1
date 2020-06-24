@@ -12,18 +12,36 @@
         </a>
         <!-- Nav Item - Dashboard -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <a class="nav-link" routerLink="">
-                <i class="fas fa-fw fa-glass-cheers"></i>
+            <a class="nav-link" routerLink="" (click)="navToggle = !navToggle">
+                <i class="fas fa-fw fa-home"></i>
                 <span>Home</span></a>
         </li>
+
+        <hr class="sidebar-divider" />
+
         <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['events']">
+            <a class="nav-link" [routerLink]="['events']" (click)="navToggle = !navToggle">
                 <i class="fas fa-fw fa-glass-cheers"></i>
                 <span>Events</span></a>
         </li>
 
-        <!-- Divider -->
         <hr class="sidebar-divider" />
+
+        <li class="nav-item" routerLinkActive="active" *ngIf="!(afAuth.authState | async)">
+            <a class="nav-link" [routerLink]="['user']" (click)="navToggle = !navToggle">
+                <i class="fas fa-fw fa-glass-cheers"></i>
+                <span>Create Events</span></a>
+        </li>
+
+        <hr class="sidebar-divider" />
+
+        <li class="nav-item" routerLinkActive="active" *ngIf="afAuth.authState | async">
+            <a class="nav-link" [routerLink]="['create-event']" (click)="navToggle = !navToggle">
+                <i class="fas fa-fw fa-glass-cheers"></i>
+                <span>Create Events</span></a>
+        </li>
+
+        <!-- Divider -->
         <!-- Heading -->
         <!-- <div class="sidebar-heading">Extra</div> -->
         <!-- Nav Item - Pages Collapse Menu -->
@@ -51,13 +69,19 @@
                     class="btn btn-link d-md-none rounded-circle ml-3">
                     <i class="fa fa-bars"></i>
                 </button>
+
+                <div routerLink="" class="ml-3 d-md-none" [ngClass]="navToggle ? 'd-none' : 'd-block' ">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/townscript-2cfcd.appspot.com/o/assets%2Fimg%2Flogo-icon.png?alt=media&token=51b33138-01c9-4bf6-8146-fe57e44bd641"
+                        alt="logo-icon" />
+                </div>
+
                 <!-- Topbar Search -->
                 <div class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-white border-0 small"
-                            placeholder="Search for Movies, Events, Plays, Sports and Activities..." aria-label="Search"
-                            aria-describedby="basic-addon2" (keyup)="onkeyup($event)" (focus)="dropSearch = !dropSearch"
-                            (blur)="blurFunction()" #seachInput />
+                            placeholder="Search for Events..." aria-label="Search" aria-describedby="basic-addon2"
+                            (keyup)="onkeyup($event)" (focus)="dropSearch = !dropSearch" (blur)="blurFunction()"
+                            #seachInput />
                         <div class="input-group-append">
                             <button class="btn bg-white" type="button">
                                 <i class="fas fa-search fa-sm"></i>
@@ -75,7 +99,49 @@
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
+
+                    <li id="home" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" routerLink="">
+                            <i class="mx-2 fas fa-fw fa-home"></i>
+                            <span>Home</span></a>
+                    </li>
+
+                    <li id="all-events" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" routerLink="events">
+                            <i class="mx-2 fas fa-fw fa-glass-cheers"></i>
+                            <span>All Events</span></a>
+                    </li>
+
+                    <li id="signin" class="nav-item no-arrow mx-1" *ngIf="router.url != '/user'">
+                        <a class="nav-link" routerLink="user" *ngIf="!(afAuth.authState | async)">
+                            <!-- Counter - Alerts -->
+                            Signin
+                        </a>
+                    </li>
+
+                    <li id="signin" class="nav-item no-arrow mx-1" *ngIf="router.url == '/user'">
+                        <a class="nav-link" routerLink="" *ngIf="!(afAuth.authState | async)">
+                            <!-- Counter - Alerts -->
+                            Go Back
+                        </a>
+                    </li>
+
+                    <li id="create-event" *ngIf="!(afAuth.authState | async )" class="nav-item" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" routerLink="user">
+                            <span class="btn btn-primary">Create Event</span>
+                        </a>
+                    </li>
+
+
+                    <li id="create-event1" *ngIf="afAuth.authState | async" class="nav-item" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" routerLink="events/create-event">
+                            <span class="btn btn-primary">Create Event</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown no-arrow d-sm-none" *ngIf="router.url != '/user'" >
                         <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-search fa-fw"></i>
@@ -84,7 +150,7 @@
                         <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                             aria-labelledby="searchDropdown">
                             <div class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group" >
+                                <div class="input-group">
                                     <input type="text" class="form-control bg-light border-0 small"
                                         placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"
                                         (keyup)="onkeyup($event)" (focus)="dropSearch = !dropSearch"
@@ -105,12 +171,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item no-arrow mx-1">
-                        <a class="nav-link" routerLink="user/login" *ngIf="!(afAuth.authState | async)">
-                            <!-- Counter - Alerts -->
-                            <span class="btn btn-primary">Login</span>
-                        </a>
-                    </li>
+
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -132,6 +193,10 @@
                             <a class="dropdown-item" routerLink="user/profile">
                                 <i class="fas fa-user-circle fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
+                            </a>
+                            <a class="dropdown-item" routerLink="events/create-event">
+                                <i class="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Create Event
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" (click)="afAuth.signOut()" data-toggle="modal"

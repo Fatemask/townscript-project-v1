@@ -228,8 +228,6 @@ export class EventsService {
           return this.db
             .collection('users', ref => ref.where('likedEvents', 'array-contains', eid))
             .valueChanges();
-        } else {
-          return [];
         }
       })
     );
