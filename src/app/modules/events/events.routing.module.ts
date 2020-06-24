@@ -9,7 +9,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { FilterCategoriesComponent } from './filter-categories/filter.categories.component';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['user/login']);
 
 const routes: Routes = [
   { path: '', component: EventsListComponent },
@@ -37,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EventsRoutingModule {}
+export class EventsRoutingModule { }
