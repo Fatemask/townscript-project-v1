@@ -8,10 +8,14 @@
   <div *ngIf="ed" class="row">
     <div class="col-xl-12 col-lg-12">
       <div>
-        <!-- <div
-        *ngIf="liked"
-        class="position-absolute bg-white shadow-sm rounded text-center p-2 m-4 love-box"
-      ></div> -->
+        <div class="position-absolute bg-white shadow-sm rounded text-center p-2 m-2 love-box">
+          <h6 class="text-gray-900 mb-0 font-weight-bold">
+            <i [ngClass]="
+                liked ? 'fas fa-heart text-danger' : 'far fa-heart text-danger'
+              "></i>
+          </h6>
+          <!-- <small class="text-muted">345</small> -->
+        </div>
         <img [src]="ed.banner" class="img-fluid" alt="..." />
       </div>
     </div>
@@ -44,46 +48,32 @@
     </div>
     <div class="col-xl-9 col-lg-9">
       <div class="bg-white info-header shadow rounded mb-4">
-        <div
-          class="row d-flex align-items-center justify-content-between p-3 border-bottom"
-        >
+        <div class="row d-flex align-items-center justify-content-between p-3 border-bottom">
           <div class="col-lg-7 m-b-4">
             <h3 class="text-gray-900 mb-0 mt-0 font-weight-bold">
-              {{ ed.eventName }}
+              The Fate of the Furious <small>2019</small>
             </h3>
             <p class="mb-0 text-gray-800">
-              <small class="text-muted"
-                ><i class="fas fa-film fa-fw fa-sm mr-1"></i>
-                {{ ed.eventCategory }}</small
-              >
+              <small class="text-muted"><i class="fas fa-film fa-fw fa-sm mr-1"></i>
+                {{ ed.eventCategory }}</small>
             </p>
           </div>
           <div class="col-lg-5 text-right">
-            <button
-              *ngIf="!liked"
-              class="d-sm-inline-block btn-primary btn mx-1"
-              (click)="like(ed.id)"
-            >
+            <button *ngIf="!liked" class="d-sm-inline-block btn-primary btn mx-1" (click)="like(ed.id)">
               like
               <i class="far fa-heart text-white"></i>
             </button>
-            <button
-              class="d-sm-inline-block btn  mx-1 btn-danger"
-              (click)="dislike(ed.id)"
-              *ngIf="liked"
-            >
+            <button class="d-sm-inline-block btn  mx-1 btn-danger" (click)="dislike(ed.id)" *ngIf="liked">
               dislike
               <i class="fas fa-heart text-white"></i>
             </button>
 
-            <button
-              *ngIf="joined"
-              (click)="joinEvent(ed.id)"
-              class="d-sm-inline-block btn btn-primary "
-            >
-              Go to Website
-              <i class="fas fa-plus fa-sm  ml-1"></i>
-            </button>
+            <a role="button" *ngIf="!(afAuth.authState | async )" routerLink="/user"
+              class="d-sm-inline-block btn btn-primary ">
+              Visit Event Website &nbsp;&nbsp;
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+
 
             <a
               [href]="ed.eventRedirectUrl"
@@ -92,21 +82,25 @@
               class="d-sm-inline-block btn btn-success"
             >
               Go to Website
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+
+            <a [href]="ed.eventRedirectUrl" target="_blank" *ngIf="(afAuth.authState | async) && visited"
+              class="d-sm-inline-block btn btn-success">
+              Go to Website&nbsp;&nbsp;
+              <i class="fas fa-external-link-alt"></i>
             </a>
           </div>
         </div>
-        <div
-          class="row d-flex align-items-center justify-content-between py-3 px-4"
-        >
+        <div class="row d-flex align-items-center justify-content-between py-3 px-4">
           <div class="col-lg-6 m-b-4">
             <p class="mb-0 text-gray-900">
               <i class="fas fa-money-bill fa-sm fa-fw mr-1"></i> Entery Fees -
-              <span class="text-white rounded px-2 py-1 bg-info"
-                >&#8377;{{ ed.eventTicketPrice }}</span
-              >
+              <span class="text-white rounded px-2 py-1 bg-info">&#8377;{{ ed.eventTicketPrice }}</span>
             </p>
           </div>
           <div class="col-lg-6 text-right">
+
             <a
               [href]="ed.eventDetails.eventSocialFacebook"
               class="mr-2 btn btn-sm btn-primary btn-circle"
@@ -127,46 +121,22 @@
       <div class="bg-white p-3 widget shadow rounded mb-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
-            <a
-              class="nav-link active"
-              id="home-tab"
-              data-toggle="tab"
-              href="#description"
-              role="tab"
-              aria-controls="home"
-              aria-selected="true"
-              >Description</a
-            >
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#description" role="tab"
+              aria-controls="home" aria-selected="true">Description</a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              id="profile-tab"
-              data-toggle="tab"
-              href="#faq"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false"
-              >FAQ
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#faq" role="tab" aria-controls="profile"
+              aria-selected="false">FAQ
             </a>
           </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-          <div
-            class="tab-pane fade show active"
-            id="description"
-            role="tabpanel"
-            aria-labelledby="description-tab"
-          >
+          <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+            <h5 class="mt-0 mb-3">{{ ed.eventName }}</h5>
             {{ ed.eventDetails.eventDescription }}
           </div>
 
-          <div
-            class="tab-pane fade"
-            id="faq"
-            role="tabpanel"
-            aria-labelledby="faq-tab"
-          >
+          <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
             {{ ed.eventDetails.eventFaq }}
           </div>
           <!-- <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">

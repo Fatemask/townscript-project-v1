@@ -22,7 +22,7 @@ export class EventDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
     private authService: AuthService,
     private eventService: EventsService
   ) {
