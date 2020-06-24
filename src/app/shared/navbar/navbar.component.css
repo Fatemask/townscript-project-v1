@@ -27,3 +27,17 @@ ul#accordionSidebar.navbar-nav.sidebar.sidebar-dark.accordion.d-md-none {
         flex: 1 1 auto;
     }
 }
+
+@media screen and (max-width: 768px) {
+    nav a#logo {
+        display: none !important;
+    }
+
+    .input-group > .custom-file, .input-group > .custom-select, .input-group > .form-control, .input-group > .form-control-plaintext {
+        flex: 1 1 auto;
+    }
+
+    #home, #all-events, #singin, #create-event, #create-event-1 {
+        display: none;
+    }
+}
