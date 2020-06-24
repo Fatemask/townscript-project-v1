@@ -123,14 +123,14 @@
                             <span>All&nbsp;Events</span></a>
                     </li>
 
-                    <li id="signin" class="nav-item no-arrow mx-1 d-md-none" *ngIf="router.url != '/user'">
+                    <li id="signin" class="nav-item no-arrow mx-1" *ngIf="router.url != '/user'">
                         <a class="nav-link" routerLink="user" *ngIf="!(afAuth.authState | async)">
                             <!-- Counter - Alerts -->
                             Signin
                         </a>
                     </li>
 
-                    <li id="signin" class="nav-item no-arrow mx-1" *ngIf="router.url == '/user'">
+                    <li id="signin" class="nav-item no-arrow mx-1 d-lg-none" *ngIf="router.url == '/user'">
                         <a class="nav-link" routerLink="" *ngIf="!(afAuth.authState | async)">
                             <!-- Counter - Alerts -->
                             Go&nbsp;Back
@@ -202,16 +202,16 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" routerLink="user/profile">
+                            <a class="dropdown-item" role="button" routerLink="user/profile">
                                 <i class="fas fa-user-circle fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
-                            <a class="dropdown-item" routerLink="events/create-event">
+                            <a class="dropdown-item" role="button" routerLink="events/create-event">
                                 <i class="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Create Event
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" (click)="afAuth.signOut()" data-toggle="modal"
+                            <a class="dropdown-item" role="button" (click)="afAuth.signOut()" data-toggle="modal"
                                 data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
