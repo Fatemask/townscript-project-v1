@@ -1,3 +1,5 @@
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -18,8 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router,
+    private db: AngularFirestore,
+    private afauth: AngularFireAuth
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -89,8 +93,16 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
       }
       if (this.isSignup) {
-        await this.authService.signUp(firstName, lastName, email, password)
-        this.router.navigate(['']);
+        await this.authService.signUp(firstName, lastName, email, password).then(() => {
+          this.afauth.authState.subscribe(u => {
+            this.db.collection('users').doc(u.uid).set({
+              firstName: firstName,
+              lastName: lastName,
+              isCreator: false,
+            }).then(() => this.router.navigate(['user/profile']))
+          })
+        })
+
       }
       if (this.isPasswordReset) {
         await this.authService.passwordReset(email);

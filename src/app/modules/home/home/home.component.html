@@ -7,32 +7,49 @@
   </ng-template>
 </owl-carousel-o>
 
-<div class="container-fluid" *ngIf="!loading">
+<div *ngIf="!loading">
   <div class="d-flex justify-content-between align-item-center">
-    <h3 class="mb-3 text-black">Browse by category</h3>
+    <h3 class="mb-3 text-black category-name">Browse by category</h3>
     <h5 class="text-right"><a routerLink="events/categories">View all</a></h5>
   </div>
   <owl-carousel-o [options]="customOptions">
-
     <ng-container *ngFor="let category of categories">
       <ng-template carouselSlide [id]="category.id">
-        <div class="card c-card" style="height: 100px;"
-          [routerLink]="['events/categories', category.name]">
-          <div class="position-absolute bg-white shadow-sm rounded text-center p-2 m-2 love-box">
-            <h6 class="text-gray-900 mb-0 font-weight-bold">{{category.name}}</h6>
+        <div
+          class="card c-card"
+          style="height: 100px;"
+          [routerLink]="['events/categories', category.name]"
+        >
+          <div
+            class="position-absolute bg-white shadow-sm rounded text-center p-2 m-2 love-box"
+          >
+            <h6 class="text-gray-900 mb-0 font-weight-bold">
+              {{ category.name }}
+            </h6>
           </div>
-          <img [src]="category.bgIMG" [alt]="category.name" [title]="category.name">
+          <img
+            [src]="category.bgIMG"
+            [alt]="category.name"
+            [title]="category.name"
+          />
         </div>
       </ng-template>
     </ng-container>
-
   </owl-carousel-o>
 
-
   <div *ngFor="let category of categoriesCarousal">
-    <h3>{{ category.category }}</h3>
+    <h3
+      class="category-name"
+      [routerLink]="['events/categories', category.category]"
+    >
+      {{ category.category }}
+    </h3>
     <owl-carousel-o [options]="customOptions" *ngIf="!loading">
-      <ng-template carouselSlide *ngFor="let event of category.data" [width]="500">
+      <ng-template
+        carouselSlide
+        *ngFor="let event of category.data"
+        [width]="500"
+      >
         <div class="card-wrapper">
           <div class="card m-card shadow border-0">
             <a [routerLink]="['events/details', event.id]">
@@ -53,8 +70,10 @@
                 </h5>
                 <p class="card-text">
                   <small class="text-muted">{{ event.language }}</small>
-                  <small class="text-danger"><i
-                      class="fas fa-calendar-alt fa-sm text-gray-400"></i>{{ event.dateAndTime }}</small>
+                  <small class="text-danger"
+                    ><i class="fas fa-calendar-alt fa-sm text-gray-400"></i
+                    >{{ event.dateAndTime }}</small
+                  >
                 </p>
               </div>
             </a>
@@ -63,5 +82,4 @@
       </ng-template>
     </owl-carousel-o>
   </div>
-
 </div>

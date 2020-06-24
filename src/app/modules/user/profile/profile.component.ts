@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   email: any;
   userForm: FormGroup;
   isDesabled: boolean = true;
+  mobNumberPattern = "^((\\+91-?)|0)?[0-9]{10}$";
 
   resetEmail = new FormControl('', [Validators.required, Validators.email]);
   resetError;
@@ -28,16 +29,16 @@ export class ProfileComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
       firstName: [''],
       lastName: [''],
       companyName: [''],
-      mobileNumber: [''],
+      mobileNumber: ['', [Validators.minLength(10), Validators.maxLength(10)]],
       street: [''],
-      zip: ['']
+      zip: ['', [Validators.minLength(6), Validators.maxLength(10)]]
     });
 
     // disable form after 2s
@@ -59,6 +60,9 @@ export class ProfileComponent implements OnInit {
             delete data.displayName;
             delete data.uid;
             delete data.roles;
+            delete data.likedEvents;
+            delete data.isAdmin;
+            delete data.creatorVerified;
             this.user = { ...this.user, ...data };
             for (const field in this.userForm.controls) {
               if (this.user[field] === undefined) {
@@ -66,7 +70,6 @@ export class ProfileComponent implements OnInit {
               }
             }
             this.userForm.setValue(this.user);
-            console.log(this.user);
           });
       }
     });
@@ -85,8 +88,7 @@ export class ProfileComponent implements OnInit {
           .collection('users')
           .doc(user.uid)
           .update({
-            ...this.userForm.value,
-            isCreator: false
+            ...this.userForm.value
           });
       }
     });

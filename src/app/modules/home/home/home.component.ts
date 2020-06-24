@@ -23,20 +23,20 @@ export class HomeComponent {
       this.categories = this.eventService.categories
       //Sort events Category wise
       for (let a = 0; a < this.categories.length; a++) {
-        let count = 0
+        /* let count = 0 */
         for (let b = 0; b < this.events.length; b++) {
           if (this.events[b].eventCategory == this.categories[a].name && this.events[b].featured != true) {
-            this.tempEvents[count] = this.events[b]
-            count = count + 1
+            this.tempEvents.push(this.events[b])
+            /* count = count + 1 */
           }
           //Featured events sorting
           if (this.events[b].featured == true && !(this.featuredEvents.includes(this.events[b]))) {
             this.featuredEvents.push(this.events[b])
           }
         }
-        count = 0
+        /* count = 0 */
         //If a certain category have more than one events then only add else skip
-        if (this.tempEvents.length > 0) {
+        if (this.tempEvents.length > 3) {
           this.categoriesCarousal.push({
             category: this.categories[a].name,
             data: [...this.tempEvents]
@@ -44,15 +44,17 @@ export class HomeComponent {
         }
         this.tempEvents = []
       }
-      console.log(this.featuredEvents)
       this.loading = false;
     });
   }
   customOptions: OwlOptions = {
     center: true,
-    items: 2,
     loop: true,
     margin: 10,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
     responsive: {
       0: {
         items: 2
