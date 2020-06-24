@@ -7,9 +7,9 @@
   </ng-template>
 </owl-carousel-o>
 
-<div class="container-fluid" *ngIf="!loading">
+<div *ngIf="!loading">
   <div class="d-flex justify-content-between align-item-center">
-    <h3 class="mb-3 text-black">Browse by category</h3>
+    <h3 class="mb-3 text-black category-name">Browse by category</h3>
     <h5 class="text-right"><a routerLink="events/categories">View all</a></h5>
   </div>
   <owl-carousel-o [options]="customOptions">
@@ -38,7 +38,12 @@
   </owl-carousel-o>
 
   <div *ngFor="let category of categoriesCarousal">
-    <h3>{{ category.category }}</h3>
+    <h3
+      class="category-name"
+      [routerLink]="['events/categories', category.category]"
+    >
+      {{ category.category }}
+    </h3>
     <owl-carousel-o [options]="customOptions" *ngIf="!loading">
       <ng-template
         carouselSlide

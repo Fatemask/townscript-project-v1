@@ -1,24 +1,37 @@
 ul#accordionSidebar.navbar-nav.sidebar.sidebar-dark.accordion.d-md-none {
-    transition: all .2s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+  transition: all 0.2s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
-.input-group > .custom-file, .input-group > .custom-select, .input-group > .form-control, .input-group > .form-control-plaintext {
-    flex: 0.5 1 auto;
+.logo-title {
+  color: white;
+}
+
+#wrapper {
+  height: 100vh;
+}
+.input-group > .custom-file,
+.input-group > .custom-select,
+.input-group > .form-control,
+.input-group > .form-control-plaintext {
+  flex: 0.5 1 auto;
 }
 
 #seachBox {
-    position: relative;
+  position: relative;
 }
 
 #searchDrop {
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
 }
 @media screen and (max-width: 425px) {
-    nav a#logo {
-        display: none !important;
-    }
-    .input-group > .custom-file, .input-group > .custom-select, .input-group > .form-control, .input-group > .form-control-plaintext {
-        flex: 1 1 auto;
-    }
+  nav a#logo {
+    display: none !important;
+  }
+  .input-group > .custom-file,
+  .input-group > .custom-select,
+  .input-group > .form-control,
+  .input-group > .form-control-plaintext {
+    flex: 1 1 auto;
+  }
 }
