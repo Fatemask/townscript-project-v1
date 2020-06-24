@@ -59,7 +59,12 @@
             </p>
           </div>
           <div class="col-lg-5 text-right">
-            <button *ngIf="!liked" class="d-sm-inline-block btn-primary btn mx-1" (click)="like(ed.id)">
+            <button *ngIf="!(afAuth.authState | async )" routerLink="/user" class="d-sm-inline-block btn-primary btn mx-1">
+              like
+              <i class="far fa-heart text-white"></i>
+            </button>
+
+            <button *ngIf="!(afAuth.authState | async ) && !liked" class="d-sm-inline-block btn-primary btn mx-1" (click)="like(ed.id)">
               like
               <i class="far fa-heart text-white"></i>
             </button>
@@ -69,24 +74,19 @@
             </button>
 
             <a role="button" *ngIf="!(afAuth.authState | async )" routerLink="/user"
-              class="d-sm-inline-block btn btn-primary ">
+              class="d-sm-inline-block btn btn-primary text-white">
               Visit Event Website &nbsp;&nbsp;
               <i class="fas fa-external-link-alt"></i>
             </a>
 
-
-            <a
-              [href]="ed.eventRedirectUrl"
-              target="_blank"
-              *ngIf="visited"
-              class="d-sm-inline-block btn btn-success"
-            >
-              Go to Website
+            <a role="button" *ngIf="(afAuth.authState | async) && joined " (click)="joinEvent(ed.id)"
+              [href]="ed.eventRedirectUrl" target="_blank" class="d-sm-inline-block btn btn-primary text-white">
+              Visit Event Website &nbsp;&nbsp;
               <i class="fas fa-external-link-alt"></i>
             </a>
 
-            <a [href]="ed.eventRedirectUrl" target="_blank" *ngIf="(afAuth.authState | async) && visited"
-              class="d-sm-inline-block btn btn-success">
+            <a role="button" [href]="ed.eventRedirectUrl" target="_blank" *ngIf="(afAuth.authState | async) && !joined"
+              class="d-sm-inline-block btn btn-success text-white">
               Go to Website&nbsp;&nbsp;
               <i class="fas fa-external-link-alt"></i>
             </a>
@@ -101,18 +101,11 @@
           </div>
           <div class="col-lg-6 text-right">
 
-            <a
-              [href]="ed.eventDetails.eventSocialFacebook"
-              class="mr-2 btn btn-sm btn-primary btn-circle"
-              target="_blank"
-            >
+            <a [href]="ed.eventDetails.eventSocialFacebook" class="mr-2 btn btn-sm btn-primary btn-circle"
+              target="_blank">
               <i class="fab fa-facebook-f"></i>
             </a>
-            <a
-              [href]="ed.eventDetails.eventSocialInstagram"
-              class="btn btn-sm btn-danger btn-circle"
-              target="_blank"
-            >
+            <a [href]="ed.eventDetails.eventSocialInstagram" class="btn btn-sm btn-danger btn-circle" target="_blank">
               <i class="fab fa-instagram"></i>
             </a>
           </div>
