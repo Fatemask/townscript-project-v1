@@ -1,19 +1,32 @@
 <div class="card e-card shadow border-0">
-  <a (click)="redirect()">
+  <div>
     <div class="m-card-cover">
-      <div
-        class="position-absolute bg-white shadow-sm rounded text-center p-2 m-2 love-box"
-      >
+
+      <button *ngIf="!(authService.user$ | async)" id="love-box" routerLink="user" class="position-absolute bg-white btn shadow-sm rounded text-center p-2 m-2 love-box">
         <h6 class="text-gray-900 mb-0 font-weight-bold">
-          <i
-            [ngClass]="
-              liked ? 'fas fa-heart text-danger' : 'far fa-heart text-danger'
-            "
-          ></i>
+          <i class="fas fa-heart text-danger"></i>
+          {{ count }}
         </h6>
         <!-- <small class="text-muted">345</small> -->
-      </div>
-      <img [src]="event.poster" class="card-img-top" alt="..." />
+      </button>
+
+      <button *ngIf="(authService.user$ | async) && liked" id="love-box" (click)="dislike(event.id)" class="position-absolute bg-white btn shadow-sm rounded text-center p-2 m-2 love-box">
+        <h6 class="text-gray-900 mb-0 font-weight-bold">
+          <i class="fas fa-heart text-danger"></i>
+          {{ count }}
+        </h6>
+        <!-- <small class="text-muted">345</small> -->
+      </button>
+
+      <button *ngIf="(authService.user$ | async) && !liked" id="love-box" (click)="like(event.id)" class="position-absolute bg-white btn shadow-sm rounded text-center p-2 m-2 love-box">
+        <h6 class="text-gray-900 mb-0 font-weight-bold">
+          <i class="far fa-heart text-danger"></i>
+          {{ count }}
+        </h6>
+        <!-- <small class="text-muted">345</small> -->
+      </button>
+
+      <img (click)="redirect()" [src]="event.poster" class="card-img-top" alt="..." />
     </div>
     <div class="card-body p-0">
       <div class="row no-gutters align-items-center">
@@ -33,11 +46,16 @@
             <br />
             <small class="text-danger">
               <i class="fas fa-calendar-alt fa-sm text-gray-400"></i>&nbsp;
-              &nbsp; {{ event.eventDueDate }}</small
-            >
+              &nbsp; {{
+                event.eventDate.day +
+                  "/" +
+                  event.eventDate.month +
+                  "/" +
+                  event.eventDate.year
+              }}</small>
           </p>
         </div>
       </div>
     </div>
-  </a>
+  </div>
 </div>

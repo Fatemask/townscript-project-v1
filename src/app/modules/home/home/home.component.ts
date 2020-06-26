@@ -1,37 +1,49 @@
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/events.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   events: any;
+  allLikes;
   tempEvents = [];
   loading = true;
   categories;
   categoriesCarousal = [];
   featuredEvents = [];
-  constructor(private eventService: EventsService, private db: AngularFirestore) {
+  constructor(
+    private eventService: EventsService,
+    private db: AngularFirestore
+  ) {}
+
+  ngOnInit() {
     /* .toPromise().then(() => location.reload()) */
-    this.eventService.getEventCategories()
-    this.eventService.getAllEvents().subscribe(events => {
+    this.eventService.getEventCategories();
+    this.eventService.getAllEvents().subscribe((events) => {
       this.events = events;
-      this.categories = this.eventService.categories
+      this.categories = this.eventService.categories;
       //Sort events Category wise
       for (let a = 0; a < this.categories.length; a++) {
         /* let count = 0 */
         for (let b = 0; b < this.events.length; b++) {
-          if (this.events[b].eventCategory == this.categories[a].name && this.events[b].featured != true) {
-            this.tempEvents.push(this.events[b])
+          if (
+            this.events[b].eventCategory == this.categories[a].name &&
+            this.events[b].featured != true
+          ) {
+            this.tempEvents.push(this.events[b]);
             /* count = count + 1 */
           }
           //Featured events sorting
-          if (this.events[b].featured == true && !(this.featuredEvents.includes(this.events[b]))) {
-            this.featuredEvents.push(this.events[b])
+          if (
+            this.events[b].featured == true &&
+            !this.featuredEvents.includes(this.events[b])
+          ) {
+            this.featuredEvents.push(this.events[b]);
           }
         }
         /* count = 0 */
@@ -39,14 +51,15 @@ export class HomeComponent {
         if (this.tempEvents.length > 3) {
           this.categoriesCarousal.push({
             category: this.categories[a].name,
-            data: [...this.tempEvents]
-          })
+            data: [...this.tempEvents],
+          });
         }
-        this.tempEvents = []
+        this.tempEvents = [];
       }
       this.loading = false;
     });
   }
+
   customOptions: OwlOptions = {
     center: true,
     loop: true,

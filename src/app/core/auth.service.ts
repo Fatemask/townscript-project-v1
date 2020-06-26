@@ -56,8 +56,8 @@ export class AuthService {
   signIn(email, password) {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((credential) => {
-        this.updateUserData(credential.user);
-        this.router.navigate[''];
+        // this.updateUserData(credential.user);
+        this.router.navigate(['']);
       })
   }
 
@@ -66,13 +66,11 @@ export class AuthService {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((credential) => {
         let newUser:any = credential.user;
-        newUser = {
-          ...newUser,
-          firstName: firstName,
-          lastName: lastName
-        }
-        this.updateUserData(credential.user);
-        this.router.navigate[''];
+        newUser.firstName = firstName;
+        newUser.lastName = lastName;
+        newUser.isCreator = false;
+        this.updateUserData(newUser);
+        this.router.navigate(['user/profile']);
       })
   }
 
