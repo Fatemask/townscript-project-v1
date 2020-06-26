@@ -206,31 +206,29 @@ export class EventsService {
         .set({
             likedEvents: firebase.firestore.FieldValue.arrayUnion({ eid })
         }, { merge: true })
+
+        let increment = firebase.firestore.FieldValue.increment(1)
+        
+        this.db.collection('counter').doc(eid).set({ totalLikes: increment}, { merge: true })
       }
     })
   }
 
-  removeLike(eid) {
+  removeLike(eid: string) {
     this.afAuth.authState.subscribe(user => {
       if(user) {
         this.db.collection('users').doc(user.uid)
         .update({
           "likedEvents": firebase.firestore.FieldValue.arrayRemove({ eid })
         });
+        let decrement = firebase.firestore.FieldValue.increment(-1)
+        this.db.collection('counter').doc(eid).set({ totalLikes: decrement }, { merge: true })
       }
     })
   }
 
   getAllLikes(eid: string) {
-    return this.afAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          return this.db
-            .collection('users', ref => ref.where('likedEvents', 'array-contains', eid))
-            .valueChanges();
-        }
-      })
-    );
+    return this.db.collection('counter').doc(eid).valueChanges();
   }
 
 }

@@ -32,22 +32,24 @@ export class EventDetailsComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.eventService.getAttendees(id).subscribe((data: any) => {
-      data.joinedUsers.forEach(element => {
-        if (element.uid == this.user.uid) {
-          this.joined = false;
-          // this.visited = true;
-          // this.pending = true;
-        }
-      })
+      if(data) {
+        data.joinedUsers.forEach(element => {
+          if (element.uid == this.user.uid) {
+            this.joined = false;
+            // this.visited = true;
+            // this.pending = true;
+          }
+        })
+      }
     }, () => { this.loading = false })
 
     this.eventService.getEventById(id).subscribe(et => {
       this.ed = et;
       this.ed.id = id;
-      this.loading = false;
     });
     this.eventService.getEventDetails(id).subscribe(eventDetails => {
       this.ed.eventDetails = eventDetails[0];
+      this.loading = false;
     });
 
     this.authService.user$.subscribe((data: any) => {

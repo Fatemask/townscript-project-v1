@@ -90,19 +90,9 @@ export class LoginComponent implements OnInit {
     try {
       if (this.isLogin) {
         await this.authService.signIn(email, password)
-        this.router.navigate(['']);
       }
       if (this.isSignup) {
-        await this.authService.signUp(firstName, lastName, email, password).then(() => {
-          this.afauth.authState.subscribe(u => {
-            this.db.collection('users').doc(u.uid).set({
-              firstName: firstName,
-              lastName: lastName,
-              isCreator: false,
-            }).then(() => this.router.navigate(['user/profile']))
-          })
-        })
-
+        await this.authService.signUp(firstName, lastName, email, password)
       }
       if (this.isPasswordReset) {
         await this.authService.passwordReset(email);
